@@ -33,7 +33,7 @@ public class ForgetPwdActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login1);
+        setContentView(R.layout.activity_input_pone);
         ButterKnife.bind(this);
         btnNextStep.setOnClickListener(new View.OnClickListener() {
             @Override
