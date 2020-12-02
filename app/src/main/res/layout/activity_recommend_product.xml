@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_225"
+        android:contentDescription="@string/image_descripe"
+        android:scaleType="fitXY"
+        android:src="@color/app_red" />
+
+    <View
+        android:id="@+id/vStatusBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/status_bar_height" />
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_44"
+        android:layout_below="@+id/vStatusBar"
+        android:contentDescription="@string/image_descripe"
+        android:paddingLeft="@dimen/dp_12"
+        android:paddingTop="@dimen/dp_12"
+        android:paddingRight="@dimen/dp_12"
+        android:paddingBottom="@dimen/dp_12"
+        android:src="@mipmap/ic_back_w" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_44"
+        android:layout_below="@+id/vStatusBar"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/recomend_pro"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_17" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivBack"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:text="@string/recomend_suggestion"
+        android:textColor="#e5edfe"
+        android:textSize="@dimen/sp_12" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvRecProductList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ivBack"
+        android:layout_marginLeft="@dimen/dp_18"
+        android:layout_marginTop="@dimen/dp_45"
+        android:layout_marginRight="@dimen/dp_18"
+        android:overScrollMode="never" />
+
+</RelativeLayout>

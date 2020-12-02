@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#ffffff</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="white">#ffffff</color>
+    <color name="gray">#cccccc</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <color name="app_bg">#ffffff</color>
+    <color name="app_bg2">#f5f5f5</color>
+    <color name="app_status_bar">#6086fe</color>
+
+    <color name="app_blue">#6086fe</color>
+    <color name="app_red">#fe6256</color>
+    <color name="app_line">#e5e6e8</color>
+    <color name="colorDDDDDD">#DDDDDD</color>
+    <color name="coloreee">#eeeeee</color>
+
+
+    <color name="text_color_1">#1e2029</color>
+    <color name="text_color_2">#242831</color>
+    <color name="text_color_3">#828283</color>
+    <color name="text_color_4">#c6c8cc</color>
+    <color name="text_color_5">#afb2b7</color>
+    <color name="text_color_6">#454d5d</color>
+    <color name="text_color_7">#98989a</color>
+    <color name="text_color_8">#a4a5a5</color>
+    <color name="tab_checked">#6086FE</color>
+    <color name="tab_unchecked">#C4C5C7</color>
+
+    <color name="color999">#FF999999</color>
+    <color name="window_bg">#F9F9F9</color>
+    <color name="color333">#FF333333</color>
+    <color name="colorE94D4E">#E94D4E</color>
+    <color name="color979798">#979798</color>
+    <color name="color7F9EFE">#7F9EFE</color>
+    <color name="color6286FE">#6286FE</color>
+    <color name="colorF3F3F3">#F3F3F3</color>
+    <color name="colorfdfdfd">#fdfdfd</color>
+    <color name="color393d47">#393d47</color>
+    <color name="colorf6f6f7">#f6f6f7</color>
+    <color name="color25affa">#25affa</color>
+    <color name="color7f7d7d">#7f7d7d</color>
+    <color name="color333333">#333333</color>
+    <color name="color222222">#222222</color>
+    <color name="color666666">#666666</color>
+    <color name="colorFAFAFA">#FAFAFA</color>
+    <color name="colorE00000">#E00000</color>
+    <color name="colorBBBBBB">#BBBBBB</color>
+    <color name="colordf944a">#df944a</color>
+    <color name="colorFF4834">#FF4834</color>
+    <color name="colorDE0000">#DE0000</color>
+    <color name="colorF4B04A">#F4B04A</color>
+
+
+
+    <color name="app_blues">#0e94fb</color>
+    <color name="color_light_blue">#9bc9ed</color>
+    <color name="color_9c9c9c">#9c9c9c</color>
+    <color name="colorFocus">#FF4081</color>
+    <color name="colorDefault">#eeeeee</color>
+</resources>

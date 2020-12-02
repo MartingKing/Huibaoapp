@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clayoutBg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/ivProductImg"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_22"
+        android:background="@color/colorAccent"
+        android:contentDescription="@string/image_descripe"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvProductName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_15"
+        android:text="趣花分期"
+        android:textColor="@color/color333333"
+        android:textSize="@dimen/sp_15"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toRightOf="@+id/ivProductImg"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_profit_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_7"
+        android:layout_marginTop="@dimen/dp_3"
+        android:ellipsize="end"
+        android:lines="1"
+        android:text="最高0元，最快3分钟放款"
+        android:textColor="@color/color666666"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintLeft_toRightOf="@+id/ivProductImg"
+        app:layout_constraintTop_toBottomOf="@+id/tvProductName" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container1"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_21"
+        android:background="@color/colorFAFAFA"
+        android:paddingTop="@dimen/dp_8"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivProductImg">
+
+        <com.jryj.mvp.ui.widget.views.AlwaysMarqueeTextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            android:text="2000-5万"
+            android:textColor="@color/colorE00000"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="额度范围"
+            android:textColor="@color/color999"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_amount" />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container2"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_21"
+        android:background="@color/colorFAFAFA"
+        android:paddingTop="@dimen/dp_8"
+        app:layout_constraintLeft_toRightOf="@+id/container1"
+        app:layout_constraintTop_toBottomOf="@+id/ivProductImg">
+
+        <TextView
+            android:id="@+id/tv_month_profit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="1.8%"
+            android:textColor="@color/colorE00000"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_month_profit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="日利率"
+            android:textColor="@color/color999"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_month_profit" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/container3"
+        android:layout_width="@dimen/dp_80"
+        android:layout_height="@dimen/dp_50"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_21"
+        android:background="@color/colorFAFAFA"
+        android:paddingTop="@dimen/dp_8"
+        app:layout_constraintLeft_toRightOf="@+id/container2"
+        app:layout_constraintTop_toBottomOf="@+id/ivProductImg">
+
+        <TextView
+            android:id="@+id/tv_month_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="1-3个月"
+            android:textColor="@color/colorE00000"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_month_limit_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_3"
+            android:text="期限"
+            android:textColor="@color/color999"
+            android:textSize="@dimen/sp_12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_month_limit" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_25"
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@drawable/shape_corner1_gradient_red"
+        android:gravity="center"
+        android:text="@string/apply_now"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp_12"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/container3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0.6dp"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@color/coloreee"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container3" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 设置几何图形四个角的弧度 -->
+    <corners android:radius="60dp" />
+    <gradient
+        android:angle="45"
+        android:endColor="@color/color7F9EFE"
+        android:startColor="@color/color6286FE" />
+
+    <!-- 设置几何形状绘制边框 -->
+    <stroke
+        android:width="2px"
+        android:color="@color/white" />
+</shape>

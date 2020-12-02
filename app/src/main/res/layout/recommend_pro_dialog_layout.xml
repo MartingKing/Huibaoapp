@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_fill_white_8"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:gravity="center_horizontal"
+        android:padding="@dimen/dp_12"
+        android:text="客官请留步，以下产品可能更适合你哦~"
+        android:textColor="@color/app_status_bar"
+        android:textSize="@dimen/sp_16" />
+
+    <include
+
+        layout="@layout/layout_pro_item" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/window_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dialog_left_coner_round_white"
+            android:gravity="center"
+            android:text="残忍离开"
+            android:textColor="@color/color999"
+            android:textSize="@dimen/sp_18" />
+
+        <View
+            android:id="@+id/middle_divider"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/window_bg" />
+
+        <TextView
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:background="@drawable/bg_dialog_right_coner_round_white"
+            android:gravity="center"
+            android:text="立即前往"
+            android:textColor="@color/app_status_bar"
+            android:textSize="@dimen/sp_18" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llayoutBg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_200"
+        android:layout_marginRight="@dimen/dp_30"
+        android:background="@drawable/bg_fill_white_6"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="@string/input_image_code"
+            android:textColor="@color/text_color_2"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_50"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@string/image_descripe"
+            android:padding="@dimen/dp_20"
+            android:src="@mipmap/ic_dialog_close" />
+
+        <ImageView
+            android:id="@+id/ivCode"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_44"
+            android:layout_below="@+id/tvTitle"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginRight="@dimen/dp_20"
+            android:contentDescription="@string/image_descripe" />
+
+        <EditText
+            android:id="@+id/etCode"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_20"
+            android:hint="@string/input_code"
+            android:layout_toLeftOf="@+id/ivCode"
+            android:background="@drawable/bg_fill_gray_4"
+            android:digits="@string/alphabet_and_number"
+            android:maxLength="6"
+            android:padding="@dimen/dp_5"
+            android:textColor="@color/text_color_2"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:id="@+id/tvCommit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_44"
+            android:layout_below="@+id/ivCode"
+            android:layout_marginLeft="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:background="@drawable/shape_corner_gradient_light_blue"
+            android:gravity="center"
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16" />
+
+    </RelativeLayout>
+
+</LinearLayout>

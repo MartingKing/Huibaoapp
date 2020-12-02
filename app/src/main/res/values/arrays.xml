@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="server_array">
+        <item>http://192.168.1.220:18080</item>
+        <item>http://w1.weath777.cn</item>
+        <item>http://119.147.212.149:18088</item>
+        <item>http://192.168.1.96:18080</item>
+    </array>
+</resources>

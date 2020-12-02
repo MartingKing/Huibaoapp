@@ -1,0 +1,144 @@
+<resources>
+    <string name="app_name">汇泊通</string>
+
+    <string name="alphabet_and_number">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</string>
+
+    <string name="order_title0">个人征信查询</string>
+    <string name="order_title1">二手车评估</string>
+    <string name="order_title2">公积金查询</string>
+    <string name="order_status0">查询中</string>
+    <string name="order_status1">评估中</string>
+    <string name="order_status2">结果已发送</string>
+    <string name="loading_str">请求数据中…</string>
+
+    <!--主界面导航按钮名称-->
+    <string name="tab_home">首页</string>
+    <string name="tab_detector">借款探测器</string>
+    <string name="tab_customer">在线客服</string>
+    <string name="tab_find_bw">找泊位</string>
+    <string name="tab_life">生活</string>
+    <string name="tab_user">我的</string>
+
+    <!--<string name="notice_info">已有&#60;font color = "#fe6256"&#62;%s&#60;&#47;font&#62;人申请借款，最快&#60;font color = "#fe6256"&#62;3分钟&#60;&#47;font&#62;放款</string>-->
+    <string name="notice_info1">已有&#60;font color = "#fe6256"&#62;%s&#60;&#47;font&#62;人成功下款!</string>
+    <string name="problem00">如何申请一笔借款？</string>
+    <string name="problem01">申请一笔借款需要多长时间？</string>
+    <string name="problem02">如何提高申请通过率？</string>
+    <string name="problem03">借款费用是多少？</string>
+    <string name="problem04">借款人需要具备哪些条件才能申请借款？</string>
+    <string name="problem05">收不到手机验证码怎么办？</string>
+    <string name="problem06">收不到手机验证码怎么办？</string>
+    <string name="problem07">审核通过后多久会打款？</string>
+    <string name="problem08">可以提前还款吗？</string>
+    <string name="problem_info00">
+        \u3000\u3000用本人实名认证的手机号注册→完成认证信息的填写→申请借款金额与期限→申请通过→等待打款→收到打款 。
+    </string>
+    <string name="problem_info01">
+        \u3000\u3000一般情况下，当天申请的借款当天就能通过审核，请您耐心等待。
+    </string>
+    <string name="problem_info02">
+        \u3000\u30001.资料填写保证真实无误
+        \n\u3000\u30002.保持良好的信用记录
+        \n\u3000\u30003.多尝试申请
+    </string>
+    <string name="problem_info03">
+        \u3000\u3000根据您的信用情况，您会有不同的贷款产品选择，一般贷款月利率在0.1%-0.3%之间。
+    </string>
+    <string name="problem_info04">
+        \u3000\u300018-55岁大陆公民，有稳定的收入来源，无不良信用记录，能满足以上三个条件者，均可以享受优质快捷的借款服务。
+    </string>
+    <string name="problem_info05">
+        \u3000\u3000重启手机或者清理手机缓存。
+    </string>
+    <string name="problem_info06">
+        \u3000\u3000一般情况下需要认证的信息如下：个人信息认证、芝麻信用认证、通信运营商认证、收款银行卡绑定、通过这些认证过后即可申请借款。
+    </string>
+    <string name="problem_info07">
+        \u3000\u3000一般情况下审核大约需要1-3个工作日，请您耐心等待。
+    </string>
+    <string name="problem_info08">
+        \u3000\u3000根据您申请的贷款产品不同，情况也不一样，一般情况下，请保证在还款日账户上余额充足即可。
+    </string>
+    <string name="register_agreement">今日有借用户注册协议</string>
+    <string name="cal_repament">还款计算器</string>
+    <string name="principal_money">应还本金</string>
+    <string name="principal_rat">应还利息</string>
+    <string name="repament_total">还款总金额</string>
+    <string name="borrow_time">借款时间</string>
+    <string name="choice_time">请选择时间</string>
+    <string name="borrowing_rat_month">借款利率(月)</string>
+    <string name="input_rat">请输入利息</string>
+    <string name="average_capital">等额本金</string>
+    <string name="average_capital_plus_interest">等额本息</string>
+    <string name="amount_due_in_each_instalment">每期还款金额</string>
+    <string name="periods">期数</string>
+    <string name="capital">本金</string>
+    <string name="rat">利息</string>
+    <string name="common_question">常见问题</string>
+    <string name="contact_survice">联系客服</string>
+    <string name="hint_repament_money">请输入借款金额</string>
+    <string name="input_mobile">请输入账号</string>
+    <string name="input_account">请输手机号</string>
+    <string name="input_pwd">请输入密码</string>
+    <string name="input_code">请输入验证码</string>
+    <string name="get_code">获取验证码</string>
+    <string name="goto_borrow">去借钱</string>
+    <string name="fast_loging">登陆</string>
+    <string name="recomend">推荐</string>
+    <string name="dector_detail_page">探测器详情页</string>
+    <string name="tips_common_question1">我们会仔细阅读您的留言，并认真吸取您的建议。</string>
+    <string name="hint_common_question">请输入100字以内的留言…</string>
+    <string name="tips_common_question2">请留下您的联系方式，我们会联系您。</string>
+    <string name="submit_confirm">确认提交</string>
+    <string name="platform_introduce">平台介绍</string>
+    <string name="low_steps">门槛更低</string>
+    <string name="mobile_borrow">有手机就能借</string>
+    <string name="high_through">通过更高</string>
+    <string name="high_through_rat">通过率达98%</string>
+    <string name="fast_get_money">放款更快</string>
+    <string name="fast_get_money_1">最快30秒放款</string>
+    <string name="announcement">公告</string>
+    <string name="headline">标题</string>
+    <string name="input_title">请输入标题</string>
+    <string name="submit_divice">提交建议</string>
+    <string name="input_devices">请输入意见内容，感谢您宝贵的意见···</string>
+    <string name="recomend_pro">推荐产品</string>
+    <string name="setting">设置</string>
+    <string name="about_us">关于我们</string>
+    <string name="loging_out">退出登录</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="app_downloading">App下载中…</string>
+    <string name="dialog_tips_title">提示</string>
+    <string name="select_citys">请选择省市</string>
+    <string name="warming_tips">温馨提示</string>
+    <string name="tips_new_version">有新的版本需要更新</string>
+    <string name="ignore_this_version">忽略此版本</string>
+    <string name="download_now">立即下载</string>
+    <string name="name">姓名</string>
+    <string name="input_name">请输入姓名</string>
+    <string name="mobile_number">手机号</string>
+    <string name="input_identify_mobile">请输入实名认证的手机号</string>
+    <string name="id_number">身份证号</string>
+    <string name="iput_id_number">请输入身份证号</string>
+    <string name="detactor_now">立即探测适合我的贷款口子</string>
+    <string name="weekly_king_of_the_loan">本周下款王</string>
+    <string name="newest_pocket">最新口子</string>
+    <string name="credit_reporting_queries">征信查询</string>
+    <string name="my_order">我的订单</string>
+    <string name="loan_tips">经数据分析同时申请3家以上，下款率高达98%</string>
+    <string name="tips_login">请登录</string>
+    <string name="switch_count">切换账号</string>
+    <string name="help_center">帮助中心</string>
+    <string name="feed_back">意见反馈</string>
+    <string name="personal_principle">隐私政策</string>
+    <string name="loan_categra">贷款大全</string>
+    <string name="more_way">更多渠道</string>
+    <string name="apply_now">立即申请</string>
+    <string name="month_rat">月利率</string>
+    <string name="black_through">黑户通道</string>
+    <string name="input_image_code">请输入图形验证码</string>
+    <string name="image_descripe">image_descripe</string>
+    <string name="recomend_suggestion">已为你探得以下产品， 建议您同时申请3家以上平台通过率100%</string>
+
+</resources>

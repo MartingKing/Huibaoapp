@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llayoutBg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"
+        android:layout_gravity="bottom"
+        android:background="@color/app_bg">
+
+        <com.contrarywind.view.WheelView
+            android:id="@+id/wvTime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_20"
+            android:layout_marginBottom="@dimen/dp_20" />
+
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_50"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:text="@string/cancel"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/text_color_3"/>
+
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_50"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:text="@string/confirm"
+            android:textSize="@dimen/sp_16"
+            android:textColor="@color/app_blue"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

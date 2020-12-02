@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="server_array">
+        <item>http://192.168.1.63:8080</item>
+        <item>http://192.168.1.195:8099</item>
+    </array>
+</resources>

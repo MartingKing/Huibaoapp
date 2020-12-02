@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="0"
+        android:centerX="0"
+        android:centerY="0"
+        android:endColor="@color/color_light_blue"
+        android:startColor="@color/color_light_blue" />
+
+    <!-- 设置几何图形四个角的弧度 -->
+    <corners android:radius="60dp"/>
+    <!-- 设置几何形状绘制边框 -->
+    <!--<stroke-->
+        <!--android:color="@color/colorDE0000"-->
+        <!--android:width="2px"/>-->
+</shape>
