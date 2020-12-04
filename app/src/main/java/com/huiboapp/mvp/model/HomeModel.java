@@ -3,16 +3,15 @@ package com.huiboapp.mvp.model;
 import android.app.Application;
 
 import com.google.gson.Gson;
+import com.huiboapp.app.service.MyService;
+import com.huiboapp.mvp.contract.HomeContract;
+import com.huiboapp.mvp.model.entity.BaseResponse;
+import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
+import com.huiboapp.mvp.model.entity.NullEntity;
+import com.huiboapp.mvp.model.entity.ProductListEntity;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
-import com.huiboapp.mvp.contract.HomeContract;
-import com.huiboapp.app.service.MyService;
-import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
-import com.huiboapp.mvp.model.entity.BaseResponse;
-import com.huiboapp.mvp.model.entity.UserInfoEntity;
-import com.huiboapp.mvp.model.entity.NullEntity;
-import com.huiboapp.mvp.model.entity.ProductListEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -40,14 +39,10 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         this.mGson = null;
         this.mApplication = null;
     }
-    @Override
-    public Observable<BaseResponse<UserInfoEntity>> findUserInfo() {
-        return mRepositoryManager.obtainRetrofitService(MyService.class).findUserInfo();
-    }
 
     @Override
-    public Observable<BaseResponse<HomeBannerIconEntity>> getHomeBannerIcon() {
-        return mRepositoryManager.obtainRetrofitService(MyService.class).getHomeBannerIcon();
+    public Observable<HomeBannerIconEntity> getHomeBannerIcon(Map<String, String> params) {
+        return mRepositoryManager.obtainRetrofitService(MyService.class).getHomeBannerIcon(params);
     }
 
     @Override

@@ -52,6 +52,6 @@ public class DetectorModel extends BaseModel implements DetectorContract.Model {
 
     @Override
     public Observable<BaseResponse<HomeBannerIconEntity>> getHomeBannerIcon() {
-        return mRepositoryManager.obtainRetrofitService(MyService.class).getHomeBannerIcon();
+        return null;
     }
 }

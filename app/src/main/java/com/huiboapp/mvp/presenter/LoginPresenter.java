@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 
+import com.huiboapp.mvp.common.HBTUtls;
 import com.huiboapp.mvp.contract.LoginContract;
 import com.huiboapp.mvp.model.cache.UserInfoHelper;
 import com.huiboapp.mvp.model.entity.BaseResponse;
@@ -51,12 +52,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
     }
 
     public void quickLogin(String mobile, String code) {
-
-        Map<String, Object> params = new ArrayMap<>();
-        params.put("msg", "login");
+        Map<String, Object> params = HBTUtls.getParamsObject(HBTUtls.pwdlogin);
         params.put("loginname", mobile);
         params.put("password", code);
-
         mModel.quickLogin(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

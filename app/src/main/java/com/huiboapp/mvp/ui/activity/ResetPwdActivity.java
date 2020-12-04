@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.commonlib.agentweb.utils.AppUtils;
 import com.huiboapp.R;
@@ -33,7 +34,11 @@ public class ResetPwdActivity extends MBaseActivity<ResetPwdPresenter> implement
     EditText etPwd2;
     @BindView(R.id.btnNext)
     Button btnNext;
-    private String vscode, mobile;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_describe)
+    TextView tvDescribe;
+    private String vscode, mobile, intentTag;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -56,6 +61,15 @@ public class ResetPwdActivity extends MBaseActivity<ResetPwdPresenter> implement
         mobile = getIntent().getStringExtra(MyConstant.CONSTANT_PHONE);
         ivBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+        intentTag = getIntent().getStringExtra(MyConstant.CONSTANT_TAG);
+        if (intentTag.equals(MyConstant.tagRegist)) {
+            tvTitle.setText("设置密码");
+            tvDescribe.setText("设置登录密码");
+        }
+        if (intentTag.equals(MyConstant.tagResetpwd)) {
+            tvTitle.setText("重置密码");
+            tvDescribe.setText("设置新密码");
+        }
     }
 
 
@@ -70,7 +84,12 @@ public class ResetPwdActivity extends MBaseActivity<ResetPwdPresenter> implement
                     ArmsUtils.makeText(AppUtils.getApp(), "密码不一致！");
                     return;
                 }
-                mPresenter.resetPwd(mobile, p1, vscode);
+                if (intentTag.equals(MyConstant.tagRegist)) {
+                    mPresenter.initPwd(mobile, p1, vscode);
+                }
+                if (intentTag.equals(MyConstant.tagResetpwd)) {
+                    mPresenter.resetPwd(mobile, p1, vscode);
+                }
                 break;
             case R.id.ivBack:
                 finish();
@@ -85,15 +104,26 @@ public class ResetPwdActivity extends MBaseActivity<ResetPwdPresenter> implement
 
     }
 
+
     @Override
-    public void onSuccess() {
+    public void onResetSuccess() {
         startActivity(new Intent(ResetPwdActivity.this, LoginActivity.class));
         finish();
     }
 
     @Override
-    public void onFailue() {
+    public void onResetFailue() {
 
     }
 
+    @Override
+    public void onRegistSuccess() {
+        startActivity(new Intent(ResetPwdActivity.this, LoginActivity.class));
+        finish();
+    }
+
+    @Override
+    public void onRegistFailue() {
+
+    }
 }

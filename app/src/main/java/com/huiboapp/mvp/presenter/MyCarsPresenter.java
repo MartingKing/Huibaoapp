@@ -4,7 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.huiboapp.mvp.common.HBTUtls;
-import com.huiboapp.mvp.contract.RegistContract;
+import com.huiboapp.mvp.contract.MyCarsContract;
 import com.huiboapp.mvp.model.entity.BaseResponse;
 import com.huiboapp.mvp.model.entity.ImageCodeEntity;
 import com.jess.arms.di.scope.ActivityScope;
@@ -24,7 +24,7 @@ import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 @ActivityScope
-public class RegistPresenter extends BasePresenter<RegistContract.Model, RegistContract.View> {
+public class MyCarsPresenter extends BasePresenter<MyCarsContract.Model, MyCarsContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -35,7 +35,7 @@ public class RegistPresenter extends BasePresenter<RegistContract.Model, RegistC
     AppManager mAppManager;
 
     @Inject
-    public RegistPresenter(RegistContract.Model model, RegistContract.View rootView) {
+    public MyCarsPresenter(MyCarsContract.Model model, MyCarsContract.View rootView) {
         super(model, rootView);
     }
 

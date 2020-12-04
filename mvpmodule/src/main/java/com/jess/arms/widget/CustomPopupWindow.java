@@ -46,7 +46,7 @@ public class CustomPopupWindow extends PopupWindow {
     private int mAnimationStyle;
     private boolean isWrap;
 
-    private CustomPopupWindow(Builder builder) {
+    public CustomPopupWindow(Builder builder) {
         this.mContentView = builder.contentView;
         this.mParentView = builder.parentView;
         this.mListener = builder.listener;
@@ -114,7 +114,7 @@ public class CustomPopupWindow extends PopupWindow {
         private int animationStyle = -1;
         private boolean isWrap;
 
-        private Builder() {
+        public Builder() {
         }
 
         public Builder contentView(View contentView) {

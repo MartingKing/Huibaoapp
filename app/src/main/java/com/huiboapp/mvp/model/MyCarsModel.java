@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.google.gson.Gson;
 import com.huiboapp.app.service.MyService;
-import com.huiboapp.mvp.contract.RegistContract;
+import com.huiboapp.mvp.contract.MyCarsContract;
 import com.huiboapp.mvp.model.entity.BaseResponse;
 import com.huiboapp.mvp.model.entity.ImageCodeEntity;
 import com.jess.arms.di.scope.ActivityScope;
@@ -19,14 +19,14 @@ import io.reactivex.Observable;
 
 
 @ActivityScope
-public class RegistModel extends BaseModel implements RegistContract.Model {
+public class MyCarsModel extends BaseModel implements MyCarsContract.Model {
     @Inject
     Gson mGson;
     @Inject
     Application mApplication;
 
     @Inject
-    public RegistModel(IRepositoryManager repositoryManager) {
+    public MyCarsModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
     }
 

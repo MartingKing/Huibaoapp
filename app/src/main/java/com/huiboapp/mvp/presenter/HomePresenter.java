@@ -2,17 +2,18 @@ package com.huiboapp.mvp.presenter;
 
 import android.app.Application;
 import android.support.v4.util.ArrayMap;
-import android.text.TextUtils;
 
+import com.huiboapp.mvp.common.HBTUtls;
+import com.huiboapp.mvp.contract.HomeContract;
+import com.huiboapp.mvp.model.cache.UserInfoHelper;
+import com.huiboapp.mvp.model.entity.BaseResponse;
+import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
+import com.huiboapp.mvp.model.entity.ProductListEntity;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
-import com.huiboapp.mvp.contract.HomeContract;
-import com.huiboapp.mvp.model.entity.BaseResponse;
-import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
-import com.huiboapp.mvp.model.entity.ProductListEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -51,19 +52,16 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
     }
 
     public void getHomeBannerIcon() {
-        mModel.getHomeBannerIcon()
+        Map<String, String> params = HBTUtls.getParams(HBTUtls.mainpageslide);
+        params.put("token", UserInfoHelper.getInstance().getToken());
+        mModel.getHomeBannerIcon(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<HomeBannerIconEntity>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<HomeBannerIconEntity>(mErrorHandler) {
                     @Override
-                    public void onNext(BaseResponse<HomeBannerIconEntity> response) {
-                        if (response.isSuccess()) {
-                            mRootView.setBanner(response.getData().getBanner());
-                            mRootView.setIcon(response.getData().getIcon());
-                        } else {
-                            mRootView.showMessage(TextUtils.isEmpty(response.getResult()) ? "获取Banner失败" : response.getResult());
-                        }
+                    public void onNext(HomeBannerIconEntity entity) {
+                        mRootView.setBanner(entity.getData());
                     }
                 });
     }
@@ -80,18 +78,12 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                 .subscribe(new ErrorHandleSubscriber<BaseResponse<List<ProductListEntity>>>(mErrorHandler) {
                     @Override
                     public void onNext(BaseResponse<List<ProductListEntity>> response) {
-                        if (response.isSuccess()) {
-                            mRootView.setProduct(response.getData(), isLoadmore);
-                        } else {
-                            mRootView.onError();
-                            mRootView.showMessage(TextUtils.isEmpty(response.getResult()) ? "未获取到产品列表" : response.getResult());
-                        }
+
                     }
 
                     @Override
                     public void onError(Throwable t) {
                         super.onError(t);
-                        mRootView.onError();
                     }
                 });
     }

@@ -16,10 +16,9 @@
 package com.huiboapp.app.init;
 
 import android.content.Context;
-import android.text.TextUtils;
 
-import com.jess.arms.http.GlobalHttpHandler;
 import com.huiboapp.mvp.model.cache.UserInfoHelper;
+import com.jess.arms.http.GlobalHttpHandler;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -97,18 +96,6 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
         return chain.request().newBuilder().header("token", tokenId)
                               .build(); */
         Request.Builder builder = chain.request().newBuilder();
-        String cookies = "";
-        String cookie = UserInfoHelper.getInstance().getCookie();
-        String s1 = UserInfoHelper.getInstance().getS1();
-        String s2 = UserInfoHelper.getInstance().getS2();
-        if (!TextUtils.isEmpty(cookie))
-            cookies = cookie + ";";
-        if (!TextUtils.isEmpty(s1))
-            cookies = cookies + s1 + ";";
-        if (!TextUtils.isEmpty(s2))
-            cookies = cookies + s2 + ";";
-//        builder.header("Host", Api.HOST);
-        builder.header("Cookie", cookies);
         String token = UserInfoHelper.getInstance().getToken();
         Timber.e("login_token>>>%s", token);
         builder.header("Authorization", token);

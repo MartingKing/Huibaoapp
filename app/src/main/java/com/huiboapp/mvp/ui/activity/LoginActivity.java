@@ -88,7 +88,7 @@ public class LoginActivity extends MBaseActivity<LoginPresenter> implements Logi
                 startActivity(new Intent(LoginActivity.this, ForgetPwdActivity.class));
                 break;
             case R.id.register:
-
+                startActivity(new Intent(LoginActivity.this, NewRegistActivity.class));
                 break;
             case R.id.refresh:
 

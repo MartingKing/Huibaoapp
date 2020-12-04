@@ -23,21 +23,6 @@ public interface DetectorContract {
          */
         void setRecProduct(List<ProductListEntity> products, boolean isLoadmore);
 
-        /**
-         * 立即匹配后跳转页面的数据
-         * @param tabMatchBottomPage datas
-         */
-        void setTab3Data(List<HomeBannerIconEntity.TabMatchBottomPageBean> tabMatchBottomPage);
-
-        /**
-         * 立即匹配前顶部图片
-         * @param url 立即匹配前顶部图片
-         */
-        void setBannerBeforeMatch(HomeBannerIconEntity.Tab3PageBean url);
-        /**
-         * @param url 立即匹配后顶部图片
-         */
-        void setBannerAfterMatch(HomeBannerIconEntity.TabMatchHeadPageBean url);
 
         void onError();
     }

@@ -24,12 +24,10 @@ import com.huiboapp.di.module.DetectorModule;
 import com.huiboapp.mvp.contract.DetectorContract;
 import com.huiboapp.mvp.model.cache.UserInfoHelper;
 import com.huiboapp.mvp.model.constant.MyConstant;
-import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
 import com.huiboapp.mvp.model.entity.ProductListEntity;
 import com.huiboapp.mvp.presenter.DetectorPresenter;
 import com.huiboapp.mvp.ui.activity.LoginActivity;
 import com.huiboapp.mvp.ui.adapter.DectactorAdapter;
-import com.huiboapp.mvp.ui.adapter.DectactorFooterAdapter;
 import com.huiboapp.mvp.ui.widget.dialog.DialogUtil;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.PjbTextUtils;
@@ -104,7 +102,6 @@ public class DetectorFragment extends MBaseFragment<DetectorPresenter> implement
     //每页加载数据
     private int pageNo = 1;
     private DectactorAdapter mDectactorAdapter;
-    private DectactorFooterAdapter mDectactorFooterAdapter;
     private Map<String, String> mSelectionsID;
     private String mAfterMatchBanner;
     private String headUrl = "";
@@ -135,7 +132,6 @@ public class DetectorFragment extends MBaseFragment<DetectorPresenter> implement
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        mPresenter.getHomeBannerIcon();
         initMap();
         initEvent();
 //        mSmartrefreshlayout.setEnableLoadmore(false);
@@ -313,27 +309,6 @@ public class DetectorFragment extends MBaseFragment<DetectorPresenter> implement
         if (products == null || products.size() == 0)
             return;
         mDectactorAdapter.setNewData(products);
-    }
-
-    @Override
-    public void setTab3Data(List<HomeBannerIconEntity.TabMatchBottomPageBean> tabMatchBottomPage) {
-
-    }
-
-    @Override
-    public void setBannerBeforeMatch(HomeBannerIconEntity.Tab3PageBean tab3PageBean) {
-        headUrl = tab3PageBean.getResourceUrl();
-        headTitle = tab3PageBean.getResourceTitle();
-        isRedirect = tab3PageBean.getIfRedirect();
-        Picasso.get().load(PjbTextUtils.getDefaultText(tab3PageBean.getResourcePic(), "http://m3.yinpiaobao.cn/daichao/dev/201905/20190509/133857804.png")).into(mBanner);
-    }
-
-    @Override
-    public void setBannerAfterMatch(HomeBannerIconEntity.TabMatchHeadPageBean tabMatchHeadPageBean) {
-        headUrl = tabMatchHeadPageBean.getResourceUrl();
-        headTitle = tabMatchHeadPageBean.getResourceTitle();
-        isRedirect = tabMatchHeadPageBean.getIfRedirect();
-        mAfterMatchBanner = tabMatchHeadPageBean.getResourcePic();
     }
 
     private Bundle setBundleToEmptyJump(ProductListEntity product) {

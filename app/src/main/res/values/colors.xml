@@ -61,4 +61,10 @@
     <color name="color_9c9c9c">#9c9c9c</color>
     <color name="colorFocus">#FF4081</color>
     <color name="colorDefault">#eeeeee</color>
+    <color name="colorBlueCarBra">#0B94FB</color>
+    <color name="colorGreenCarBra">#D2F1DD</color>
+    <color name="colorGreenCarBraLight">#57CD72</color>
+    <color name="common_bg">#FCF9FC</color>
+    <color name="color_FDB025">#FDB025</color>
+    <color name="half_trans">#99000000</color>
 </resources>

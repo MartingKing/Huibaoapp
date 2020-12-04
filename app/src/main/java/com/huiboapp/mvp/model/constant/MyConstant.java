@@ -20,6 +20,9 @@ public class MyConstant {
     public static String HOME_EMPTY_JUMP = "home_empty_jump";
     public static String CONSTANT_PHONE = "user_phone";
     public static String CONSTANT_PHONE_CODE = "phone_code";
+    public static String CONSTANT_TAG = "verify_tag";
+    public static String tagRegist = "registpwd";
+    public static String tagResetpwd = "resetpwd";
 
     public static String VERIFY_CODE = "getvertificationcode";
 

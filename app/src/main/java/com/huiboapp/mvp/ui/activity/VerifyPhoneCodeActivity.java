@@ -36,7 +36,9 @@ public class VerifyPhoneCodeActivity extends MBaseActivity<VerifyPhoneCodePresen
     TextView tvDesc;
     @BindView(R.id.btn_next_step)
     Button btnNextStep;
-    private String mobile;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    private String mobile, intentTag;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -56,7 +58,15 @@ public class VerifyPhoneCodeActivity extends MBaseActivity<VerifyPhoneCodePresen
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         mobile = getIntent().getStringExtra(MyConstant.CONSTANT_PHONE);
-        mPresenter.getPhoneCode(mobile);
+        intentTag = getIntent().getStringExtra(MyConstant.CONSTANT_TAG);
+        if (intentTag.equals(MyConstant.tagRegist)) {
+            tvTitle.setText("注册");
+            mPresenter.getRgistPhoneCode(mobile);
+        }
+        if (intentTag.equals(MyConstant.tagResetpwd)) {
+            tvTitle.setText("重置密码");
+            mPresenter.getResetPwdPhoneCode(mobile);
+        }
         ivBack.setOnClickListener(this);
         btnNextStep.setOnClickListener(this);
         tvResendcode.setOnClickListener(this);
@@ -75,11 +85,19 @@ public class VerifyPhoneCodeActivity extends MBaseActivity<VerifyPhoneCodePresen
                 finish();
                 break;
             case R.id.tv_resendcode:
-                mPresenter.getPhoneCode(mobile);
+                if (intentTag.equals(MyConstant.tagRegist)) {
+                    mPresenter.getRgistPhoneCode(mobile);
+                }
+                if (intentTag.equals(MyConstant.tagResetpwd)) {
+                    mPresenter.getResetPwdPhoneCode(mobile);
+                }
                 break;
             case R.id.btn_next_step:
                 String code = verifycode.getContent();
-                startActivity(new Intent(VerifyPhoneCodeActivity.this, ResetPwdActivity.class).putExtra(MyConstant.CONSTANT_PHONE_CODE, code).putExtra(MyConstant.CONSTANT_PHONE, mobile));
+                startActivity(new Intent(VerifyPhoneCodeActivity.this, ResetPwdActivity.class)
+                        .putExtra(MyConstant.CONSTANT_PHONE_CODE, code)
+                        .putExtra(MyConstant.CONSTANT_PHONE, mobile)
+                        .putExtra(MyConstant.CONSTANT_TAG, intentTag));
                 break;
         }
     }

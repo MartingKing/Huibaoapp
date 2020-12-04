@@ -48,7 +48,7 @@ public class VerifyPhoneCodePresenter extends BasePresenter<VerifyPhoneCodeContr
         this.mApplication = null;
     }
 
-    public void getPhoneCode(String phone) {
+    public void getResetPwdPhoneCode(String phone) {
         Map<String, String> params = HBTUtls.getParams(HBTUtls.msg1);
         params.put("msisdn", phone);
         mModel.getPhoneCode(params)
@@ -74,4 +74,29 @@ public class VerifyPhoneCodePresenter extends BasePresenter<VerifyPhoneCodeContr
                 });
     }
 
+    public void getRgistPhoneCode(String phone) {
+        Map<String, String> params = HBTUtls.getParams(HBTUtls.msg3);
+        params.put("msisdn", phone);
+        mModel.getPhoneCode(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<ImageCodeEntity>>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse<ImageCodeEntity> response) {
+                        Log.e("VerifyPhoneCode", "onNext: " + response.toString());
+                        if (response.isSuccess()) {
+                            mRootView.onSuccess();
+                        } else {
+                            mRootView.onFailue();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        Log.e("VerifyPhoneCode", "onError: " + t.getMessage());
+                    }
+                });
+    }
 }

@@ -1,18 +1,17 @@
 package com.huiboapp.mvp.presenter;
 
 import android.app.Application;
-import android.text.TextUtils;
 
-import com.jess.arms.di.scope.FragmentScope;
-import com.jess.arms.http.imageloader.ImageLoader;
-import com.jess.arms.integration.AppManager;
-import com.jess.arms.mvp.BasePresenter;
-import com.jess.arms.utils.RxLifecycleUtils;
 import com.huiboapp.mvp.contract.DetectorContract;
 import com.huiboapp.mvp.model.entity.BaseResponse;
 import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
 import com.huiboapp.mvp.model.entity.NullEntity;
 import com.huiboapp.mvp.model.entity.ProductListEntity;
+import com.jess.arms.di.scope.FragmentScope;
+import com.jess.arms.http.imageloader.ImageLoader;
+import com.jess.arms.integration.AppManager;
+import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.RxLifecycleUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -85,22 +84,4 @@ public class DetectorPresenter extends BasePresenter<DetectorContract.Model, Det
                 });
     }
 
-    public void getHomeBannerIcon() {
-        mModel.getHomeBannerIcon()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<HomeBannerIconEntity>>(mErrorHandler) {
-                    @Override
-                    public void onNext(BaseResponse<HomeBannerIconEntity> response) {
-                        if (response.isSuccess()) {
-                            mRootView.setTab3Data(response.getData().getTabMatchBottomPage());
-                            mRootView.setBannerBeforeMatch(response.getData().getTab3Page().get(0));
-                            mRootView.setBannerAfterMatch(response.getData().getTabMatchHeadPage().get(0));
-                        } else {
-                            mRootView.showMessage(TextUtils.isEmpty(response.getReason()) ? "获取Banner失败" : response.getReason());
-                        }
-                    }
-                });
-    }
 }

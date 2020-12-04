@@ -22,6 +22,7 @@
             android:src="@mipmap/ic_back_b" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -31,6 +32,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/tv_describe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_48"

@@ -2,7 +2,7 @@ package com.huiboapp.mvp.presenter;
 
 import android.app.Application;
 
-import com.huiboapp.mvp.contract.DetectorInfoContract;
+import com.huiboapp.mvp.contract.AddCarContract;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -14,7 +14,7 @@ import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
 @ActivityScope
-public class DetectorInfoPresenter extends BasePresenter<DetectorInfoContract.Model, DetectorInfoContract.View> {
+public class AddCarPresenter extends BasePresenter<AddCarContract.Model, AddCarContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -25,7 +25,7 @@ public class DetectorInfoPresenter extends BasePresenter<DetectorInfoContract.Mo
     AppManager mAppManager;
 
     @Inject
-    public DetectorInfoPresenter(DetectorInfoContract.Model model, DetectorInfoContract.View rootView) {
+    public AddCarPresenter(AddCarContract.Model model, AddCarContract.View rootView) {
         super(model, rootView);
     }
 

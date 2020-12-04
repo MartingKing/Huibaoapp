@@ -10,7 +10,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 
 
-public interface RegistContract {
+public interface MyCarsContract {
     interface View extends IView {
         void onSuccess();
         void onFailue();

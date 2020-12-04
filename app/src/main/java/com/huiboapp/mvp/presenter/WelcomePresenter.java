@@ -1,11 +1,11 @@
 package com.huiboapp.mvp.presenter;
 
 import android.app.Application;
-import android.support.v4.util.ArrayMap;
 
+import com.huiboapp.mvp.common.HBTUtls;
 import com.huiboapp.mvp.contract.WelcomeContract;
 import com.huiboapp.mvp.model.entity.BaseResponse;
-import com.huiboapp.mvp.model.entity.VersionEntity;
+import com.huiboapp.mvp.model.entity.WelcomeEntity;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -47,19 +47,22 @@ public class WelcomePresenter extends BasePresenter<WelcomeContract.Model, Welco
         this.mApplication = null;
     }
 
-    public void getVersion(String channelId) {
-        Map<String, Object> params = new ArrayMap<>();
-        params.put("flag", 1);
-        params.put("channelId", channelId);
+    public void getSplash() {
+        Map<String, Object> params = HBTUtls.getParamsObject(HBTUtls.splash);
         // 切换baseurl
-//        RetrofitUrlManager.getInstance().putDomain("kdj", H5Urls.getH5Url("home_list"));
-        mModel.getVersion(params)
+        //RetrofitUrlManager.getInstance().putDomain("kdj", H5Urls.getH5Url("home_list"));
+        mModel.getSplash(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<VersionEntity>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<WelcomeEntity>>(mErrorHandler) {
                     @Override
-                    public void onNext(BaseResponse<VersionEntity> response) {
+                    public void onNext(BaseResponse<WelcomeEntity> response) {
+                        if (response.isSuccess() && response.getData() != null){
+                            mRootView.getSplashUrl(response.getData().getSlash());
+                        }else {
+                            mRootView.onFailed();
+                        }
 
                     }
                 });

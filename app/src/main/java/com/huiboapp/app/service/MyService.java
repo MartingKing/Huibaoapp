@@ -9,7 +9,7 @@ import com.huiboapp.mvp.model.entity.NewTruggleEntity;
 import com.huiboapp.mvp.model.entity.NullEntity;
 import com.huiboapp.mvp.model.entity.ProductListEntity;
 import com.huiboapp.mvp.model.entity.UserInfoEntity;
-import com.huiboapp.mvp.model.entity.VersionEntity;
+import com.huiboapp.mvp.model.entity.WelcomeEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -48,20 +48,19 @@ public interface MyService {
     @POST("security")
     Observable<BaseResponse<ImageCodeEntity>> resetPwd(@QueryMap Map<String, String> params);
 
-
-
-
-
-
-    // 获取验证码
     @Headers({"Domain-Name: hbt"})
-    @POST("/security")
-    Observable<BaseResponse<NullEntity>> phone_code(@QueryMap Map<String, String> params);
+    @POST("advert")
+    Observable<BaseResponse<WelcomeEntity>> getSplash(@QueryMap Map<String, Object> params);
 
-    //    @GET("/api/version/info?flag=1&channelId=-100")
+    //首页banner和icon获取
     @Headers({"Domain-Name: hbt"})
-    @GET("/api/version/info")
-    Observable<BaseResponse<VersionEntity>> getVersion(@QueryMap Map<String, Object> params);
+    @POST("advert")
+    Observable<HomeBannerIconEntity> getHomeBannerIcon(@QueryMap Map<String, String> params);
+
+
+
+
+
 
     // _=1548640745704
     @Headers({"Domain-Name: hbt"})
@@ -122,10 +121,6 @@ public interface MyService {
     @GET("/api/other/new/switch")
     Observable<CommonBooleanEntity> getTruggleByChannel(@QueryMap Map<String, String> params);
 
-    //首页banner和icon获取
-    @Headers({"Domain-Name: hbt"})
-    @POST("/api/newAPi/resourceList")
-    Observable<BaseResponse<HomeBannerIconEntity>> getHomeBannerIcon();
 
     @Headers({"Domain-Name: hbt"})
     @GET("/api/other/v2.0/new/switch")

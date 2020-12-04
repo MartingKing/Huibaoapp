@@ -3,25 +3,23 @@ package com.huiboapp.mvp.model;
 import android.app.Application;
 
 import com.google.gson.Gson;
+import com.huiboapp.mvp.contract.AddCarContract;
+import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 
-import com.jess.arms.di.scope.ActivityScope;
-
 import javax.inject.Inject;
-
-import com.huiboapp.mvp.contract.DetectorInfoContract;
 
 
 @ActivityScope
-public class DetectorInfoModel extends BaseModel implements DetectorInfoContract.Model {
+public class AddCarModel extends BaseModel implements AddCarContract.Model {
     @Inject
     Gson mGson;
     @Inject
     Application mApplication;
 
     @Inject
-    public DetectorInfoModel(IRepositoryManager repositoryManager) {
+    public AddCarModel(IRepositoryManager repositoryManager) {
         super(repositoryManager);
     }
 

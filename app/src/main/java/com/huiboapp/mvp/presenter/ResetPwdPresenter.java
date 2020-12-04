@@ -63,9 +63,9 @@ public class ResetPwdPresenter extends BasePresenter<ResetPwdContract.Model, Res
                     public void onNext(BaseResponse<ImageCodeEntity> response) {
                         Log.e(TAG, "onNext: " + response.toString());
                         if (response.isSuccess()) {
-                            mRootView.onSuccess();
+                            mRootView.onResetSuccess();
                         } else {
-                            mRootView.onFailue();
+                            mRootView.onResetFailue();
                         }
                     }
 
@@ -77,5 +77,31 @@ public class ResetPwdPresenter extends BasePresenter<ResetPwdContract.Model, Res
                 });
     }
 
+    public void initPwd(String phone, String pwd, String code) {
+        Map<String, String> params = HBTUtls.getParams(HBTUtls.regist);
+        params.put("password", pwd);
+        params.put("msisdn", phone);
+        params.put("vcode", code);
 
+        mModel.resetPwd(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<BaseResponse<ImageCodeEntity>>(mErrorHandler) {
+                    @Override
+                    public void onNext(BaseResponse<ImageCodeEntity> response) {
+                        if (response.isSuccess()) {
+                            mRootView.onRegistSuccess();
+                        } else {
+                            mRootView.onRegistFailue();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.showMessage(t.getMessage());
+                    }
+                });
+    }
 }

@@ -22,6 +22,7 @@
             android:src="@mipmap/ic_back_b" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -55,9 +56,9 @@
         android:id="@+id/verifycode"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_44"
-        android:layout_marginStart="@dimen/dp_48"
+        android:layout_marginStart="@dimen/dp_28"
         android:layout_marginTop="@dimen/dp_50"
-        android:layout_marginEnd="@dimen/dp_38"
+        android:layout_marginEnd="@dimen/dp_28"
         android:gravity="center_vertical"
         android:inputType="number"
         android:maxLength="6"

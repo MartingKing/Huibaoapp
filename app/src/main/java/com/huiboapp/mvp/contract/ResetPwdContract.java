@@ -12,8 +12,10 @@ import io.reactivex.Observable;
 
 public interface ResetPwdContract {
     interface View extends IView {
-        void onSuccess();
-        void onFailue();
+        void onResetSuccess();
+        void onResetFailue();
+        void onRegistSuccess();
+        void onRegistFailue();
     }
 
     interface Model extends IModel {

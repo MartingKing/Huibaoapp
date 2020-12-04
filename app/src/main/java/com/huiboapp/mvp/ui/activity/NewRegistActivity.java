@@ -1,0 +1,66 @@
+package com.huiboapp.mvp.ui.activity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.huiboapp.R;
+import com.huiboapp.mvp.common.HBTUtls;
+import com.huiboapp.mvp.model.constant.MyConstant;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
+public class NewRegistActivity extends AppCompatActivity {
+
+
+    @BindView(R.id.ivBack)
+    ImageView ivBack;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
+    @BindView(R.id.tv_describe)
+    TextView tvDescribe;
+    @BindView(R.id.etUsername)
+    EditText etUsername;
+    @BindView(R.id.btn_next_step)
+    Button btnNextStep;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_input_pone);
+        ButterKnife.bind(this);
+        tvTitle.setText("注册");
+        tvDescribe.setText("新用户注册");
+        btnNextStep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pohne = etUsername.getText().toString().trim();
+                if (HBTUtls.checkInput(pohne)) {
+                    startActivity(new Intent(NewRegistActivity.this, VerifyPhoneCodeActivity.class).
+                            putExtra(MyConstant.CONSTANT_PHONE, pohne).putExtra(MyConstant.CONSTANT_TAG, MyConstant.tagRegist));
+                }
+            }
+        });
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+}
