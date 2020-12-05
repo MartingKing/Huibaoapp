@@ -92,7 +92,6 @@ public class RequestInterceptor implements Interceptor {
         Request request = chain.request();
 
         boolean logRequest = printLevel == Level.ALL || (printLevel != Level.NONE && printLevel == Level.REQUEST);
-
         if (logRequest) {
             //打印请求信息
             if (request.body() != null && isParseable(request.body().contentType())) {

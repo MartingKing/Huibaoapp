@@ -1,12 +1,10 @@
 package com.huiboapp.mvp.presenter;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.huiboapp.mvp.common.HBTUtls;
 import com.huiboapp.mvp.contract.MyCarsContract;
-import com.huiboapp.mvp.model.entity.BaseResponse;
-import com.huiboapp.mvp.model.entity.ImageCodeEntity;
+import com.huiboapp.mvp.model.entity.CommonEntity;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
@@ -48,25 +46,20 @@ public class MyCarsPresenter extends BasePresenter<MyCarsContract.Model, MyCarsC
         this.mApplication = null;
     }
 
-    public void Regist(String phone, String pwd, String code) {
-        Map<String, String> params = HBTUtls.getParams(HBTUtls.msg2);
-        params.put("password", pwd);
-        params.put("msisdn", phone);
-        params.put("vcode", code);
-
-        mModel.resetPwd(params)
+    public void deleteCar(String id, String plate, String color) {
+        Map<String, Object> paramsObject = HBTUtls.getParamsObject(HBTUtls.unbindcar);
+        paramsObject.put("id",id);
+        paramsObject.put("plate",plate);
+        paramsObject.put("platecolor",color);
+        mModel.deleteCar(paramsObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<ImageCodeEntity>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<CommonEntity>(mErrorHandler) {
                     @Override
-                    public void onNext(BaseResponse<ImageCodeEntity> response) {
-                        Log.e(TAG, "onNext: " + response.toString());
-                        if (response.isSuccess()) {
-                            mRootView.onSuccess();
-                        } else {
-                            mRootView.onFailue();
-                        }
+                    public void onNext(CommonEntity response) {
+                        mRootView.showMessage(response.getReason());
+
                     }
 
                     @Override
@@ -77,5 +70,28 @@ public class MyCarsPresenter extends BasePresenter<MyCarsContract.Model, MyCarsC
                 });
     }
 
+    public void autoPay(String id, String plate, String color,boolean auto) {
+        Map<String, Object> paramsObject = HBTUtls.getParamsObject(HBTUtls.autopay);
+        paramsObject.put("id",id);
+        paramsObject.put("plate",plate);
+        paramsObject.put("platecolor",color);
+        paramsObject.put("autopay",auto);
+        mModel.autoPay(paramsObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<CommonEntity>(mErrorHandler) {
+                    @Override
+                    public void onNext(CommonEntity response) {
+                        mRootView.showMessage(response.getReason());
 
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                        mRootView.showMessage(t.getMessage());
+                    }
+                });
+    }
 }

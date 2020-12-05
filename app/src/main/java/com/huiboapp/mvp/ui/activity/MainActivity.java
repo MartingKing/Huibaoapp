@@ -19,17 +19,14 @@ import com.huiboapp.app.base.MBaseActivity;
 import com.huiboapp.app.utils.MUtils;
 import com.huiboapp.di.component.DaggerMainComponent;
 import com.huiboapp.di.module.MainModule;
-import com.huiboapp.event.CommonEvent;
+import com.huiboapp.event.ClickEvent;
 import com.huiboapp.mvp.contract.MainContract;
 import com.huiboapp.mvp.presenter.MainPresenter;
 import com.huiboapp.mvp.ui.fragment.AllLoanProFragment;
-import com.huiboapp.mvp.ui.fragment.DetectorFragment;
 import com.huiboapp.mvp.ui.fragment.HomeFragment;
+import com.huiboapp.mvp.ui.fragment.UserFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.EventBusHelper;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 
@@ -69,11 +66,10 @@ public class MainActivity extends MBaseActivity<MainPresenter> implements MainCo
             switch (item.getItemId()) {
                 case R.id.item_home:
                     mViewPager.setCurrentItem(0);
-
                     return true;
                 case R.id.item_loan:
+                    EventBusHelper.postStickyEvent(new ClickEvent(0));
                     mViewPager.setCurrentItem(1);
-
                     return true;
                 case R.id.item_mine:
                     mViewPager.setCurrentItem(2);
@@ -90,7 +86,7 @@ public class MainActivity extends MBaseActivity<MainPresenter> implements MainCo
         mBottomNavigationView.inflateMenu(R.menu.menu_bottom);
         fragments[0] = HomeFragment.newInstance();
         fragments[1] = AllLoanProFragment.newInstance();
-        fragments[2] = DetectorFragment.newInstance();
+        fragments[2] = UserFragment.newInstance();
 
         mBottomNavigationView.setLabelVisibilityMode(1);
         adjustNavigationIcoSize(mBottomNavigationView);
@@ -127,11 +123,6 @@ public class MainActivity extends MBaseActivity<MainPresenter> implements MainCo
             layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
             iconView.setLayoutParams(layoutParams);
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void scheduleEvent(CommonEvent event) {
-        mViewPager.setCurrentItem(1);
     }
 
     @Override

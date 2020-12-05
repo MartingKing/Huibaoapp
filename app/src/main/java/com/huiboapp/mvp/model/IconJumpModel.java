@@ -3,17 +3,15 @@ package com.huiboapp.mvp.model;
 import android.app.Application;
 
 import com.google.gson.Gson;
-import com.jess.arms.di.scope.ActivityScope;
-import com.jess.arms.integration.IRepositoryManager;
-import com.jess.arms.mvp.BaseModel;
-import com.huiboapp.mvp.contract.IconJumpContract;
 import com.huiboapp.app.service.MyService;
+import com.huiboapp.mvp.contract.IconJumpContract;
 import com.huiboapp.mvp.model.entity.BaseResponse;
 import com.huiboapp.mvp.model.entity.LatestProEntity;
 import com.huiboapp.mvp.model.entity.NullEntity;
-import com.huiboapp.mvp.model.entity.ProductListEntity;
+import com.jess.arms.di.scope.ActivityScope;
+import com.jess.arms.integration.IRepositoryManager;
+import com.jess.arms.mvp.BaseModel;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -38,11 +36,6 @@ public class IconJumpModel extends BaseModel implements IconJumpContract.Model {
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
-    }
-
-    @Override
-    public Observable<BaseResponse<List<ProductListEntity>>> findProductList(Map<String, Integer> params, boolean isloadmore) {
-        return mRepositoryManager.obtainRetrofitService(MyService.class).getProductList(params);
     }
 
     @Override

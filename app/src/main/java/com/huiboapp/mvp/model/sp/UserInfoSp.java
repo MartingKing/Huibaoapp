@@ -1,10 +1,11 @@
 package com.huiboapp.mvp.model.sp;
 
 import com.huiboapp.app.utils.SPUtils;
+import com.huiboapp.mvp.model.entity.UserInfoEntity;
 
-/**
- * Created by yaojian on 2018/5/30 15:32
- */
+import java.util.List;
+
+
 public class UserInfoSp {
 
     private static final String FILE_NAME = "uer_info";
@@ -17,6 +18,7 @@ public class UserInfoSp {
     public static final String SESSION2 = "session2";
     public static final String COOKIE = "cookie";
     public static final String TOKEN = "token";
+    public static final String CARLIST = "carlist";
     public static final String LOGIN_TIME = "login_time";
 
 
@@ -62,5 +64,13 @@ public class UserInfoSp {
 
     public static int getIntParam(String key) {
         return data().getInt(key, 0);
+    }
+
+    public static void setCarListParam(String key, List<UserInfoEntity.CarList> platelist) {
+        data().setDataList(key, platelist);
+    }
+
+    public static List<UserInfoEntity.CarList> getCarListParam(String key) {
+        return data().getDataList(key, UserInfoEntity.CarList.class);
     }
 }

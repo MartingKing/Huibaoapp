@@ -1,6 +1,0 @@
-<resources>
-    <dimen name="livenessHomePromptSize">20sp</dimen>
-    <dimen name="livenessExitTitlePromptSize">18sp</dimen>
-    <dimen name="livenessExitLeftPromptSize">18sp</dimen>
-    <dimen name="livenessExitRightPromptSize">18sp</dimen>
-</resources>

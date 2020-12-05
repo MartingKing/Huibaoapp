@@ -5,8 +5,7 @@ import android.app.Application;
 import com.google.gson.Gson;
 import com.huiboapp.app.service.MyService;
 import com.huiboapp.mvp.contract.MyCarsContract;
-import com.huiboapp.mvp.model.entity.BaseResponse;
-import com.huiboapp.mvp.model.entity.ImageCodeEntity;
+import com.huiboapp.mvp.model.entity.CommonEntity;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
@@ -39,7 +38,12 @@ public class MyCarsModel extends BaseModel implements MyCarsContract.Model {
 
 
     @Override
-    public Observable<BaseResponse<ImageCodeEntity>> resetPwd(Map<String, String> params) {
-        return mRepositoryManager.obtainRetrofitService(MyService.class).resetPwd(params);
+    public Observable<CommonEntity> deleteCar(Map<String, Object> params) {
+        return mRepositoryManager.obtainRetrofitService(MyService.class).addCar(params);
+    }
+
+    @Override
+    public Observable<CommonEntity> autoPay(Map<String, Object> params) {
+        return mRepositoryManager.obtainRetrofitService(MyService.class).addCar(params);
     }
 }

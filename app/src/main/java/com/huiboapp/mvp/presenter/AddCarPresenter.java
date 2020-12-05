@@ -3,14 +3,21 @@ package com.huiboapp.mvp.presenter;
 import android.app.Application;
 
 import com.huiboapp.mvp.contract.AddCarContract;
+import com.huiboapp.mvp.model.entity.CommonEntity;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.RxLifecycleUtils;
+
+import java.util.Map;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
+import me.jessyan.rxerrorhandler.handler.ErrorHandleSubscriber;
 
 
 @ActivityScope
@@ -36,5 +43,22 @@ public class AddCarPresenter extends BasePresenter<AddCarContract.Model, AddCarC
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void addYourCar(Map<String, Object> params) {
+        mModel.addCar(params)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<CommonEntity>(mErrorHandler) {
+                    @Override
+                    public void onNext(CommonEntity response) {
+                        if (response.getResult() == 300000) {
+                            mRootView.onSuccess();
+                        } else {
+                            mRootView.onFailed(response.getReason());
+                        }
+                    }
+                });
     }
 }

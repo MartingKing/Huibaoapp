@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/bg_order"
+    android:padding="@dimen/dp_15"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/brand_one"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_30"
+            android:background="@drawable/bg_gradient_green"
+            android:gravity="center"
+            android:textColor="@color/color333"
+            android:text="黑A9N87"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/brand_two"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@drawable/bg_gradient_blue"
+            android:gravity="center"
+            android:text="黑A9N87"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/brand_three"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_29"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@mipmap/ic_addcar" />
+    </LinearLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/uncheck_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/brand_one">
+
+        <TextView
+            android:id="@+id/parking_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="中央公园地下车库"
+            android:textColor="@color/color333"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/parking_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="进入时间: 2020.05.07 12:20:30"
+            android:textColor="@color/color7f7d7d"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parking_address" />
+
+        <TextView
+            android:id="@+id/out_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="驶出时间: 2020.05.07 12:20:30"
+            android:textColor="@color/color7f7d7d"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/parking_time" />
+
+        <TextView
+            android:id="@+id/part_total_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="停留时长 :"
+            android:textColor="@color/color7f7d7d"
+            android:textSize="@dimen/sp_14"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/out_time" />
+
+
+        <TextView
+            android:id="@+id/total_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="2:31:14"
+            android:textColor="@color/color333"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintLeft_toRightOf="@+id/part_total_time"
+            app:layout_constraintTop_toBottomOf="@+id/out_time" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>

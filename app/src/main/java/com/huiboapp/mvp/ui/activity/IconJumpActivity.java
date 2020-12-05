@@ -93,19 +93,7 @@ public class IconJumpActivity extends MBaseActivity<IconJumpPresenter> implement
     }
 
     private void initRefresh() {
-        mPresenter.findProductList(mResourceId, pageNo, pageSize, false);
-        mSmartrefreshlayout.setEnableLoadmore(false);
-        mSmartrefreshlayout.setOnRefreshListener(refreshlayout -> {
-            mIconJumpAdapter.setEnableLoadMore(true);
-            pageNo = 1;
-            mPresenter.findProductList(mResourceId, pageNo, pageSize, false);
-        });
-        mIconJumpAdapter.setLoadMoreView(new EasyLoadMoreView());
-        mIconJumpAdapter.setOnLoadMoreListener(() -> {
-            pageNo++;
-            mPresenter.findProductList(mResourceId, pageNo, pageSize, true);
-        }, mRecyclerView);
-        mPresenter.findLastestProduct();
+
     }
 
     private void initAdapter() {

@@ -1,13 +1,20 @@
 package com.huiboapp.mvp.common;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 import com.commonlib.agentweb.utils.AppUtils;
 import com.huiboapp.app.utils.RegexUtils;
+import com.huiboapp.mvp.model.cache.UserInfoHelper;
 import com.jess.arms.utils.ArmsUtils;
 
 import java.io.ByteArrayInputStream;
@@ -40,6 +47,13 @@ public class HBTUtls {
     public static final String pwdlogin = "login";
     public static final String splash = "slash";
     public static final String mainpageslide = "mainpageslide";
+    public static final String bindcar = "bindplate";
+    public static final String unbindcar = "unbindplate";
+    public static final String memberinfo = "getmemberinfo";
+    public static final String autopay = "autopay";
+    public static final String queryorderlist = "queryorderlist";
+    public static final String queryorderdetail = "queryorderdetail";
+    public static final String queryparkslist = "queryparkslist";
 
     public static Map<String, String> getParams(String msg) {
         Map<String, String> params = new ArrayMap<>();
@@ -54,6 +68,9 @@ public class HBTUtls {
         Map<String, Object> params = new ArrayMap<>();
         params.put("msg", msg);
         params.put("channelid", "1");
+        if (!TextUtils.isEmpty(UserInfoHelper.getInstance().getToken())) {
+            params.put("token", UserInfoHelper.getInstance().getToken());
+        }
         params.put("msgid", "1000");
         params.put("sign", "12345");
         return params;
@@ -67,7 +84,6 @@ public class HBTUtls {
         }
         return data;
     }
-
 
 
     public static List<String> getCarType() {
@@ -128,7 +144,6 @@ public class HBTUtls {
     }
 
 
-
     public static Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
@@ -146,5 +161,77 @@ public class HBTUtls {
         return bitmap;
     }
 
+    /**
+     * bitmap转为base64
+     *
+     * @param bitmap
+     * @return
+     */
+    public static String bitmapToBase64(Bitmap bitmap) {
+        String result = null;
+        ByteArrayOutputStream baos = null;
+        try {
+            if (bitmap != null) {
+                baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+
+                baos.flush();
+                baos.close();
+
+                byte[] bitmapBytes = baos.toByteArray();
+                result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (baos != null) {
+                    baos.flush();
+                    baos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * base64转为bitmap
+     *
+     * @param base64Data
+     * @return
+     */
+    public static Bitmap base64ToBitmap(String base64Data) {
+        byte[] bytes = Base64.decode(base64Data, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+    }
+
+    /**
+     * 横屏可通过 widthPixels - widthPixels2 > 0 来判断底部导航栏是否存在
+     *
+     * @param windowManager
+     * @return true表示有虚拟导航栏 false没有虚拟导航栏
+     */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+    public static boolean isNavigationBarShow(WindowManager windowManager) {
+        Display defaultDisplay = windowManager.getDefaultDisplay();
+        //获取屏幕高度
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        defaultDisplay.getRealMetrics(outMetrics);
+        int heightPixels = outMetrics.heightPixels;
+        //宽度
+        int widthPixels = outMetrics.widthPixels;
+
+
+        //获取内容高度
+        DisplayMetrics outMetrics2 = new DisplayMetrics();
+        defaultDisplay.getMetrics(outMetrics2);
+        int heightPixels2 = outMetrics2.heightPixels;
+        //宽度
+        int widthPixels2 = outMetrics2.widthPixels;
+
+        return heightPixels - heightPixels2 > 0 || widthPixels - widthPixels2 > 0;
+    }
 
 }

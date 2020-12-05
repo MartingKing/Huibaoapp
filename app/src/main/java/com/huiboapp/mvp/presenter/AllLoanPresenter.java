@@ -1,20 +1,16 @@
 package com.huiboapp.mvp.presenter;
 
 import android.app.Application;
-import android.support.v4.util.ArrayMap;
-import android.text.TextUtils;
 
+import com.huiboapp.mvp.common.HBTUtls;
+import com.huiboapp.mvp.contract.AllLoanContract;
+import com.huiboapp.mvp.model.entity.ParkListEntity;
 import com.jess.arms.di.scope.FragmentScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
-import com.huiboapp.mvp.contract.AllLoanContract;
-import com.huiboapp.mvp.model.entity.BaseResponse;
-import com.huiboapp.mvp.model.entity.NullEntity;
-import com.huiboapp.mvp.model.entity.ProductListEntity;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -50,25 +46,16 @@ public class AllLoanPresenter extends BasePresenter<AllLoanContract.Model, AllLo
         this.mApplication = null;
     }
 
-    public void findRecommendList(String label, int pageNo, int pageSize, boolean isLoadmore) {
-        Map<String, String> params = new ArrayMap<>();
-        params.put("resourceId", "-1");
-        params.put("productLabels", label);
-        params.put("pageNo", String.valueOf(pageNo));
-        params.put("pageSize", String.valueOf(pageSize));
-        mModel.findRecommendList(params, isLoadmore)
+    public void findParkList() {
+        Map<String, Object> params = HBTUtls.getParamsObject(HBTUtls.queryparkslist);
+        mModel.findAddrList(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<List<ProductListEntity>>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<ParkListEntity>(mErrorHandler) {
                     @Override
-                    public void onNext(BaseResponse<List<ProductListEntity>> response) {
-                        if (response.isSuccess()) {
-                            mRootView.setRecProduct(response.getData(), isLoadmore);
-                        } else {
-                            mRootView.onError();
-                            mRootView.showMessage(TextUtils.isEmpty(response.getReason()) ? "未获取到产品列表" : response.getReason());
-                        }
+                    public void onNext(ParkListEntity response) {
+                        mRootView.setRecProduct(response,true);
                     }
 
                     @Override
@@ -79,16 +66,4 @@ public class AllLoanPresenter extends BasePresenter<AllLoanContract.Model, AllLo
                 });
     }
 
-    //贷款大全产品列表点击埋点
-    public void getHomeloadDataBurying(Map<String, Object> params) {
-        mModel.getHomeloadDataBurying(params)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<NullEntity>>(mErrorHandler) {
-                    @Override
-                    public void onNext(BaseResponse<NullEntity> response) {
-                    }
-                });
-    }
 }

@@ -215,6 +215,27 @@ public class UserInfoEntity implements Serializable {
         private String approvalstatus;
         private String approvememo;
 
+        @Override
+        public String toString() {
+            return "CarList{" +
+                    "plate='" + plate + '\'' +
+                    ", platecolor='" + platecolor + '\'' +
+                    ", id='" + id + '\'' +
+                    ", autopay='" + autopay + '\'' +
+                    ", license='" + license + '\'' +
+                    ", vin='" + vin + '\'' +
+                    ", brandmodel='" + brandmodel + '\'' +
+                    ", engineno='" + engineno + '\'' +
+                    ", owner='" + owner + '\'' +
+                    ", registdate='" + registdate + '\'' +
+                    ", cartype='" + cartype + '\'' +
+                    ", usecharacter='" + usecharacter + '\'' +
+                    ", inspectionexpire=" + inspectionexpire +
+                    ", approvalstatus='" + approvalstatus + '\'' +
+                    ", approvememo='" + approvememo + '\'' +
+                    '}';
+        }
+
         public String getPlate() {
             return plate;
         }

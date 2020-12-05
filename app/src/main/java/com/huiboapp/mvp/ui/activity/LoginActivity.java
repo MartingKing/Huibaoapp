@@ -104,6 +104,7 @@ public class LoginActivity extends MBaseActivity<LoginPresenter> implements Logi
     @Override
     public void loginSuccess() {
         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        finish();
     }
 
     @Override

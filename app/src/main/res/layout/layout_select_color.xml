@@ -12,14 +12,85 @@
         android:orientation="vertical"
         android:padding="@dimen/dp_15">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerview"
+        <RadioGroup
+            android:id="@+id/rgColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:overScrollMode="never" />
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/rb1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="蓝牌" />
+
+            <RadioButton
+                android:id="@+id/rb2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="绿牌" />
+
+            <RadioButton
+                android:id="@+id/rb3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="黄牌" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rgUseType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/yy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="营运机动车" />
+
+            <RadioButton
+                android:id="@+id/fyy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="非营运机动车" />
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rgCarType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <RadioButton
+                android:id="@+id/cx1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="大型车" />
+
+            <RadioButton
+                android:id="@+id/cx2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="中型车" />
+
+            <RadioButton
+                android:id="@+id/cx3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="小型车" />
+
+            <RadioButton
+                android:id="@+id/cx4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="微型车" />
+        </RadioGroup>
 
         <Button
-            android:id="@+id/submit"
+            android:id="@+id/select"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_30"
             android:layout_marginLeft="@dimen/dp_38"

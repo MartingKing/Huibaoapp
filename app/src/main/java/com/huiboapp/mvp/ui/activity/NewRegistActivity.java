@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.huiboapp.R;
@@ -23,7 +24,7 @@ public class NewRegistActivity extends AppCompatActivity {
 
     @BindView(R.id.ivBack)
     ImageView ivBack;
-    @BindView(R.id.tv_title)
+    @BindView(R.id.tvTitle)
     TextView tvTitle;
     @BindView(R.id.tv_describe)
     TextView tvDescribe;
@@ -31,6 +32,10 @@ public class NewRegistActivity extends AppCompatActivity {
     EditText etUsername;
     @BindView(R.id.btn_next_step)
     Button btnNextStep;
+    @BindView(R.id.clayoutBg)
+    View clayoutBg;
+    @BindView(R.id.rlayoutTitle)
+    RelativeLayout rlayoutTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

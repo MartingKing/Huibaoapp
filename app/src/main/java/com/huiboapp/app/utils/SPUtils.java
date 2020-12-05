@@ -6,7 +6,14 @@ import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v4.util.SimpleArrayMap;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -413,4 +420,82 @@ public final class SPUtils {
         }
         return true;
     }
+
+
+    /**
+     * save json string of data list to share preference
+     * @param tag
+     * @param datalist
+     */
+    public <T> void setDataList(String tag, List<T> datalist) {
+        if (null == datalist)
+            return;
+        Gson gson = new Gson();
+        //change datalist to json
+        String strJson = gson.toJson(datalist);
+        sp.edit().clear();
+        sp.edit().putString(tag, strJson);
+        sp.edit().apply();
+    }
+
+    /**
+     * get data List from share preferences
+     * @param tag share preferences data tag
+     * @param cls target list element object class
+     * @return list
+     */
+    public <T> List<T> getDataList(String tag, Class<T> cls) {
+        List<T> datalist=new ArrayList<T>();
+        String strJson = sp.getString(tag, null);
+        if (null == strJson) {
+            return datalist;
+        }
+        try {
+            Gson gson = new Gson();
+            JsonArray array = new JsonParser().parse(strJson).getAsJsonArray();
+            for (JsonElement jsonElement : array) {
+                datalist.add(gson.fromJson(jsonElement, cls));
+            }
+        } catch (Exception e) {
+        }
+        return datalist;
+    }
+
+    /**
+     * save json string of data to share preference
+     * @param tag
+     * @param data object
+     */
+    public <T> void setData(String tag, T data) {
+        if (null == data)
+            return;
+        Gson gson = new Gson();
+        //change data to json
+        String strJson = gson.toJson(data);
+        sp.edit().clear();
+        sp.edit().putString(tag, strJson);
+        sp.edit().apply();
+    }
+
+    /**
+     * get data from share preferences
+     * @param tag share preferences data tag
+     * @param cls target object class
+     * @return target object or null if error happyed
+     */
+    public <T> T getData(String tag, Class<T> cls) {
+        T data = null;
+        String strJson = sp.getString(tag, null);
+        if (null == strJson) {
+            return null;
+        }
+        try {
+            Gson gson = new Gson();
+            JsonElement jsonElement = new JsonParser().parse(strJson);
+            data = gson.fromJson(jsonElement, cls);
+        } catch (Exception e) {
+        }
+        return data;
+    }
+
 }

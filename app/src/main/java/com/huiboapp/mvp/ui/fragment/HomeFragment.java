@@ -1,18 +1,18 @@
 package com.huiboapp.mvp.ui.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Outline;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,76 +31,59 @@ import com.huiboapp.R;
 import com.huiboapp.app.base.MBaseFragment;
 import com.huiboapp.di.component.DaggerHomeComponent;
 import com.huiboapp.di.module.HomeModule;
+import com.huiboapp.event.CommonEvent;
 import com.huiboapp.mvp.contract.HomeContract;
 import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
+import com.huiboapp.mvp.model.entity.HomeOrderEntity;
+import com.huiboapp.mvp.model.entity.UserInfoEntity;
 import com.huiboapp.mvp.presenter.HomePresenter;
-import com.huiboapp.mvp.ui.activity.AddCarActivity;
-import com.huiboapp.mvp.ui.activity.MyCarsActivity;
+import com.huiboapp.mvp.ui.adapter.HomeOrderAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.EventBusHelper;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 
 public class HomeFragment extends MBaseFragment<HomePresenter> implements HomeContract.View {
 
-    @BindView(R.id.banner)
-    ConvenientBanner mBanner;
-    @BindView(R.id.rvProductList)
-    RecyclerView rvProductList;
+
+    @BindView(R.id.clayoutBg)
+    View clayoutBg;
     @BindView(R.id.tvTitle)
     TextView tvTitle;
     @BindView(R.id.ivBack)
     ImageView ivBack;
+    @BindView(R.id.rlayoutTitle)
+    RelativeLayout rlayoutTitle;
+    @BindView(R.id.banner)
+    ConvenientBanner mBanner;
+    @BindView(R.id.tv1)
+    TextView tv1;
+    @BindView(R.id.rl_share_park)
+    RelativeLayout rlSharePark;
+    @BindView(R.id.tv2)
+    TextView tv2;
+    @BindView(R.id.rl_park_record)
+    RelativeLayout rlParkRecord;
+    @BindView(R.id.tv3)
+    TextView tv3;
+    @BindView(R.id.rl_fast_pay)
+    RelativeLayout rlFastPay;
     @BindView(R.id.icon_layout)
     LinearLayout iconLayout;
     @BindView(R.id.tv_hot)
     TextView tvHot;
+    @BindView(R.id.rvProductList)
+    RecyclerView rvProductList;
     @BindView(R.id.scrollview)
     NestedScrollView scrollview;
-    @BindView(R.id.clayoutBg)
-    View clayoutBg;
-    @BindView(R.id.rlayoutTitle)
-    RelativeLayout rlayoutTitle;
-    @BindView(R.id.tv1)
-    TextView tv1;
-    @BindView(R.id.tv2)
-    TextView tv2;
-    @BindView(R.id.tv3)
-    TextView tv3;
-    @BindView(R.id.brand_one)
-    TextView brandOne;
-    @BindView(R.id.brand_two)
-    TextView brandTwo;
-    @BindView(R.id.brand_three)
-    TextView brandThree;
-    @BindView(R.id.parking_address)
-    TextView parkingAddress;
-    @BindView(R.id.parking_time)
-    TextView parkingTime;
-    @BindView(R.id.out_time)
-    TextView outTime;
-    @BindView(R.id.part_total_time)
-    TextView partTotalTime;
-    @BindView(R.id.total_time)
-    TextView totalTime;
-    @BindView(R.id.cs_order)
-    ConstraintLayout csOrder;
-    @BindView(R.id.uncheck_order)
-    ConstraintLayout uncheckedOrder;
-    @BindView(R.id.rl_share_park)
-    RelativeLayout rlSharePark;
-    @BindView(R.id.rl_park_record)
-    RelativeLayout rlParkRecord;
-    @BindView(R.id.rl_fast_pay)
-    RelativeLayout rlFastPay;
-
-
-    //偏移量
-    private int pageSize = 10;
-    //每页加载数据
-    private int pageNo = 1;
+    private HomeOrderAdapter homeOrderAdapter;
+    private List<UserInfoEntity.CarList> platelist;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -125,34 +108,31 @@ public class HomeFragment extends MBaseFragment<HomePresenter> implements HomeCo
     public void initData(@Nullable Bundle savedInstanceState) {
         //添加自定义分割线
         ivBack.setVisibility(View.GONE);
+        mPresenter.getMemberInfo();
+        mPresenter.getOrderInfo();
         tvTitle.setText("汇泊通");
         DividerItemDecoration divider = new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL);
         divider.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(mContext, R.drawable.item_divider1)));
         rvProductList.addItemDecoration(divider);
+        rvProductList.setLayoutManager(new LinearLayoutManager(getContext()));
         mPresenter.getHomeBannerIcon();
-        brandOne.setOnClickListener(this);
-        brandTwo.setOnClickListener(this);
-        brandThree.setOnClickListener(this);
-        uncheckedOrder.setOnClickListener(this);
         rlSharePark.setOnClickListener(this);
         rlParkRecord.setOnClickListener(this);
         rlFastPay.setOnClickListener(this);
+        homeOrderAdapter = new HomeOrderAdapter(platelist);
+        rvProductList.setAdapter(homeOrderAdapter);
 
     }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onMainEvent(CommonEvent event){
+        platelist = event.getPlatelist();
+        Log.e(TAG, "onMainEvent: "+platelist);
 
+    }
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-            case R.id.brand_one:
-            case R.id.brand_two:
-                startActivity(new Intent(getActivity(), MyCarsActivity.class));
-                break;
-            case R.id.brand_three:
-                startActivity(new Intent(getActivity(), AddCarActivity.class));
-                break;
-            case R.id.uncheck_order:
-                break;
             case R.id.rl_share_park:
                 break;
             case R.id.rl_park_record:
@@ -200,6 +180,13 @@ public class HomeFragment extends MBaseFragment<HomePresenter> implements HomeCo
         });
     }
 
+    @Override
+    public void orderInfo(List<HomeOrderEntity.DataBean.OrderlistBean> orderlistBeans) {
+        if (orderlistBeans != null && orderlistBeans.size() > 0)
+            homeOrderAdapter.addData(orderlistBeans);
+    }
+
+
     public class LocalImageHolderView implements Holder<String> {
         private ImageView imageView;
 
@@ -221,7 +208,6 @@ public class HomeFragment extends MBaseFragment<HomePresenter> implements HomeCo
 
         @Override
         public void UpdateUI(Context context, final int position, String data) {
-//            Picasso.get().load(data.getMainpageslide()).into(imageView);
             Glide.with(AppUtils.getApp()).load(data).into(imageView);
         }
     }

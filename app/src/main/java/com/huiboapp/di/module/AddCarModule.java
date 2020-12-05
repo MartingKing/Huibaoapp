@@ -1,6 +1,7 @@
 package com.huiboapp.di.module;
 
 import com.huiboapp.mvp.contract.AddCarContract;
+import com.huiboapp.mvp.model.AddCarModel;
 import com.jess.arms.di.scope.ActivityScope;
 
 import dagger.Module;
@@ -28,7 +29,7 @@ public class AddCarModule {
 
     @ActivityScope
     @Provides
-    AddCarContract.Model provideAddCarModel(com.huiboapp.mvp.model.AddCarModel model) {
+    AddCarContract.Model provideAddCarModel(AddCarModel model) {
         return model;
     }
 }

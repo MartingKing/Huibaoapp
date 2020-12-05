@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import com.huiboapp.mvp.model.entity.UserInfoEntity;
 import com.huiboapp.mvp.model.sp.UserInfoSp;
 
+import java.util.List;
+
 import timber.log.Timber;
 
 /**
@@ -34,7 +36,7 @@ public class UserInfoHelper {
     private String token;
     private int balance;
     private long loginTime;
-
+    private List<UserInfoEntity.CarList> platelist;
 
     public String getToken() {
         if (TextUtils.isEmpty(token)) {
@@ -125,11 +127,22 @@ public class UserInfoHelper {
         UserInfoSp.setParam(UserInfoSp.USER_BALANCE, balance);
     }
 
+    public List<UserInfoEntity.CarList> getPlatelist() {
+        platelist = UserInfoSp.getCarListParam(UserInfoSp.CARLIST);
+        return platelist;
+    }
+
+    public void setPlatelist(List<UserInfoEntity.CarList> platelist) {
+        this.platelist = platelist;
+        UserInfoSp.setCarListParam(UserInfoSp.CARLIST, platelist);
+    }
+
     public void setLoginInfo(UserInfoEntity param) {
         setUserName(param.getLoginname());
         setUserPhone(param.getMsisdn());
         setToken(param.getToken());
         setBalance(param.getBalance());
+        setPlatelist(param.getPlatelist());
     }
 
     public void setUserInfo(UserInfoEntity param) {

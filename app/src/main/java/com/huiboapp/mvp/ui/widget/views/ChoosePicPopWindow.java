@@ -21,9 +21,11 @@ public class ChoosePicPopWindow extends PopupWindow implements View.OnClickListe
         switch (v.getId()) {
             case R.id.takePhotoBtn:
                 mSelectListerner.takephoto();
+                dismiss();
                 break;
             case R.id.pickPhotoBtn:
                 mSelectListerner.selecpic();
+                dismiss();
                 break;
             case R.id.cancelBtn:
                 dismiss();

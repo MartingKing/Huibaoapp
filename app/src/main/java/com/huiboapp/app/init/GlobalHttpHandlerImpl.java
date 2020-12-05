@@ -93,12 +93,14 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
     @Override
     public Request onHttpRequestBefore(Interceptor.Chain chain, Request request) {
         /* 如果需要再请求服务器之前做一些操作, 则重新返回一个做过操作的的 Request 如增加 Header, 不做操作则直接返回参数 request
-        return chain.request().newBuilder().header("token", tokenId)
-                              .build(); */
+        return chain.request().newBuilder().header("token", tokenId).build(); */
         Request.Builder builder = chain.request().newBuilder();
         String token = UserInfoHelper.getInstance().getToken();
         Timber.e("login_token>>>%s", token);
-        builder.header("Authorization", token);
+        Timber.e("url>>>%s", request.url());
+//        builder.header("Authorization", token);
+
+
         return builder.build();
     }
 }

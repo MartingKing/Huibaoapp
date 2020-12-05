@@ -4,6 +4,7 @@ import android.app.Application;
 import android.support.v4.util.ArrayMap;
 import android.text.TextUtils;
 
+import com.huiboapp.event.CommonEvent;
 import com.huiboapp.mvp.common.HBTUtls;
 import com.huiboapp.mvp.contract.LoginContract;
 import com.huiboapp.mvp.model.cache.UserInfoHelper;
@@ -14,6 +15,7 @@ import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.EventBusHelper;
 import com.jess.arms.utils.RxLifecycleUtils;
 
 import java.util.Map;
@@ -63,6 +65,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                     @Override
                     public void onNext(BaseResponse<UserInfoEntity> response) {
                         if (response.isSuccess()) {
+                            EventBusHelper.postStickyEvent(new CommonEvent(response.getData().getPlatelist()));
                             UserInfoHelper.getInstance().setLoginInfo(response.getData());
                             mRootView.loginSuccess();
                         } else {

@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ImageView;
 
-import com.jess.arms.di.component.AppComponent;
 import com.huiboapp.R;
 import com.huiboapp.app.base.MBaseActivity;
 import com.huiboapp.di.component.DaggerRecommendProductComponent;
 import com.huiboapp.di.module.RecommendProductModule;
 import com.huiboapp.mvp.contract.RecommendProductContract;
 import com.huiboapp.mvp.presenter.RecommendProductPresenter;
-import com.huiboapp.mvp.ui.adapter.RecProductList2Adapter;
+import com.jess.arms.di.component.AppComponent;
 
 import butterknife.BindView;
 
@@ -27,7 +26,6 @@ public class RecommendProductActivity extends MBaseActivity<RecommendProductPres
     @BindView(R.id.rvRecProductList)
     RecyclerView rvRecProductList;
 
-    RecProductList2Adapter mAdapter;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {

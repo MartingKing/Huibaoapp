@@ -1,7 +1,6 @@
 package com.huiboapp.mvp.contract;
 
-import com.huiboapp.mvp.model.entity.BaseResponse;
-import com.huiboapp.mvp.model.entity.ImageCodeEntity;
+import com.huiboapp.mvp.model.entity.CommonEntity;
 import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
 
@@ -12,11 +11,11 @@ import io.reactivex.Observable;
 
 public interface MyCarsContract {
     interface View extends IView {
-        void onSuccess();
-        void onFailue();
+
     }
 
     interface Model extends IModel {
-        Observable<BaseResponse<ImageCodeEntity>> resetPwd(Map<String, String> params);
+        Observable<CommonEntity> deleteCar(Map<String, Object> params);
+        Observable<CommonEntity> autoPay(Map<String, Object> params);
     }
 }

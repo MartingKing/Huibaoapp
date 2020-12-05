@@ -13,17 +13,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -38,15 +40,14 @@ import com.huiboapp.di.module.AddCarModule;
 import com.huiboapp.mvp.common.HBTUtls;
 import com.huiboapp.mvp.contract.AddCarContract;
 import com.huiboapp.mvp.presenter.AddCarPresenter;
-import com.huiboapp.mvp.ui.adapter.SelectColorListAdapter;
 import com.huiboapp.mvp.ui.widget.views.ChoosePicPopWindow;
 import com.huiboapp.mvp.ui.widget.views.SelectColorWindow;
 import com.jess.arms.di.component.AppComponent;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -97,10 +98,21 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
     @BindView(R.id.rl_container)
     RelativeLayout container;
     Calendar calendar = Calendar.getInstance(Locale.CHINA);
+    EditText[] mArray;
+    @BindView(R.id.et_cartype)
+    EditText etCartype;
+    @BindView(R.id.et_idnum)
+    EditText etIdnum;
+    @BindView(R.id.et_fdjnum)
+    EditText etFdjnum;
+    @BindView(R.id.et_owner)
+    EditText etOwner;
     private Uri imageUri;
     private Uri cropImageUri;
     private static final int OUTPUT_X = 480;
     private static final int OUTPUT_Y = 480;
+    private boolean autoPay = false;
+    private String selectColor = "blue";
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -120,8 +132,11 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         isBarDarkFont = false;
+        tvTitle.setText("添加车辆");
+        mArray = new EditText[]{et1, et2, et3, et4, et5, et6, et7, et8};
         initEditText();
         initEvent();
+
     }
 
 
@@ -131,11 +146,19 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
         tvSelecttime.setOnClickListener(this);
         tvSelecttype.setOnClickListener(this);
         tvUsetype.setOnClickListener(this);
+        submit.setOnClickListener(this);
         rlCarImg.setOnClickListener(this);
+        tvSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // TODO: 2020/12/4  身份识别验证
+                autoPay = isChecked;
+            }
+        });
     }
 
     private void initEditText() {
-        EditText[] mArray = new EditText[]{et1, et2, et3, et4, et5, et6, et7, et8};
+        StringBuilder stringBuffer = new StringBuilder();
         for (int i = 0; i < mArray.length; i++) {
             int finalI = i;
             mArray[i].addTextChangedListener(new TextWatcher() {
@@ -155,20 +178,22 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
 
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
+                    stringBuffer.append(s);
                     if (s.length() > 0 && finalI < 7) {
                         mArray[finalI + 1].requestFocus();
                         mArray[finalI + 1].setFocusable(true);
                         mArray[finalI + 1].setFocusableInTouchMode(true);
                         mArray[finalI + 1].setSelection(0);
                     }
-
                 }
             });
         }
+
     }
 
     @Override
@@ -176,16 +201,18 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
         super.onClick(view);
         switch (view.getId()) {
             case R.id.tv_color:
-                initSelectWindow(HBTUtls.getBr());
+                initSelectWindow(1);
                 break;
             case R.id.tv_selecttime:
                 showTimePicker();
                 break;
             case R.id.tv_selecttype:
-                initSelectWindow(HBTUtls.getCarType());
+
+                initSelectWindow(2);
                 break;
             case R.id.tv_usetype:
-                initSelectWindow(HBTUtls.getUseType());
+
+                initSelectWindow(3);
                 break;
             case R.id.rl_car_img:
                 ChoosePicPopWindow choosePicPopWindow = new ChoosePicPopWindow(this, new ChoosePicPopWindow.SelectPicListerner() {
@@ -204,9 +231,60 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
             case R.id.ivBack:
                 finish();
                 break;
+            case R.id.submit:
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < 8; i++) {
+                    stringBuilder.append(mArray[i].getText().toString());
+                }
+                String plate = stringBuilder.toString();
+                String brColor = tvColor.getText().toString();
+                String idNum = etIdnum.getText().toString();
+                String brandmodel = etCartype.getText().toString();
+                String fdjNum = etFdjnum.getText().toString();
+                String owner = etOwner.getText().toString();
+                String time = tvSelecttime.getText().toString();
+                String cartype = tvSelecttype.getText().toString();
+                String usecharacter = tvUsetype.getText().toString();
+                if (plate.length() < 7 || TextUtils.isEmpty(plate)) {
+                    ToastUtils.showShort(this, "请输入正确车牌号!");
+                    return;
+                }
+                if (brColor.equals("绿色") && plate.length() < 8) {
+                    ToastUtils.showShort(this, "选择的车型和车牌号不符!");
+                    return;
+                }
+                if (TextUtils.isEmpty(idNum)) {
+                    ToastUtils.showShort(this, "请输入车架号!");
+                    return;
+                }
+                if (TextUtils.isEmpty(owner)) {
+                    ToastUtils.showShort(this, "请输入车辆所有人!");
+                    return;
+                }
+
+                Map<String, Object> params = HBTUtls.getParamsObject(HBTUtls.bindcar);
+                params.put("plate", getDefaultS(plate));
+                params.put("platecolor", selectColor);
+                params.put("autoPay", autoPay);
+                params.put("license", getDefaultS(HBTUtls.bitmapToBase64(bitmap)));
+                params.put("vin", getDefaultS(idNum));
+                params.put("brandmodel", getDefaultS(brandmodel));
+                params.put("engineno", getDefaultS(fdjNum));
+                params.put("owner", getDefaultS(owner));
+                params.put("registdate", time);
+                params.put("cartype", getDefaultS(cartype));
+                params.put("usecharacter", getDefaultS(usecharacter));
+                Log.e(TAG, "onClick: " + params);
+                mPresenter.addYourCar(params);
+                break;
         }
     }
 
+    public String getDefaultS(String str) {
+        return TextUtils.isEmpty(str) ? "" : str;
+    }
+
+    private Bitmap bitmap;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -236,7 +314,7 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
                 break;
             //裁剪返回
             case PhotoUtils.CODE_RESULT_REQUEST:
-                Bitmap bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
+                bitmap = PhotoUtils.getBitmapFromUri(cropImageUri, this);
                 if (bitmap != null) {
                     myimg.setImageBitmap(bitmap);
                 }
@@ -283,7 +361,7 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
         DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
+                tvSelecttime.setText(year + "-" + (Integer.valueOf(month) + 1) + "-" + dayOfMonth);
             }
         },
                 calendar.get(Calendar.YEAR),
@@ -292,16 +370,80 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
         dialog.show();
     }
 
-    private void initSelectWindow(List<String> data) {
+    private void initSelectWindow(int type) {
         View popView = getLayoutInflater().inflate(R.layout.layout_select_color, null);
-        RecyclerView popRecy = popView.findViewById(R.id.recyclerview);
-        popRecy.setLayoutManager(new LinearLayoutManager(this));
+        RadioButton rb1 = popView.findViewById(R.id.rb1);
+        RadioButton rb2 = popView.findViewById(R.id.rb2);
+        RadioButton rb3 = popView.findViewById(R.id.rb3);
+        RadioGroup rgColor = popView.findViewById(R.id.rgColor);
+        RadioButton yy = popView.findViewById(R.id.yy);
+        RadioButton fyy = popView.findViewById(R.id.fyy);
+        RadioGroup rgUseType = popView.findViewById(R.id.rgUseType);
+        RadioButton cx1 = popView.findViewById(R.id.cx1);
+        RadioButton cx2 = popView.findViewById(R.id.cx2);
+        RadioButton cx3 = popView.findViewById(R.id.cx3);
+        RadioButton cx4 = popView.findViewById(R.id.cx4);
+        RadioGroup rgCarType = popView.findViewById(R.id.rgCarType);
+        Button pSubmip = popView.findViewById(R.id.select);
+
+        switch (type) {
+            case 1:
+                rgColor.setVisibility(View.VISIBLE);
+                rgCarType.setVisibility(View.GONE);
+                rgUseType.setVisibility(View.GONE);
+                break;
+            case 2:
+                rgColor.setVisibility(View.GONE);
+                rgCarType.setVisibility(View.VISIBLE);
+                rgUseType.setVisibility(View.GONE);
+                break;
+            case 3:
+                rgColor.setVisibility(View.GONE);
+                rgCarType.setVisibility(View.GONE);
+                rgUseType.setVisibility(View.VISIBLE);
+                break;
+        }
         SelectColorWindow selectColorWindow = new SelectColorWindow(this, popView);
-        SelectColorListAdapter selectColorListAdapter = new SelectColorListAdapter();
-        popRecy.setAdapter(selectColorListAdapter);
-        selectColorListAdapter.addData(data);
         selectColorWindow.showAtLocation(container, Gravity.CENTER, 0, 0);
+        pSubmip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rb1.isChecked()) {
+                    selectColor = "blue";
+                    tvColor.setText("蓝牌");
+                }
+                if (rb2.isChecked()) {
+                    tvColor.setText("绿牌");
+                    selectColor = "green";
+                }
+                if (rb3.isChecked()) {
+                    tvColor.setText("黄牌");
+                    selectColor = "yellow";
+                }
+
+                if (cx1.isChecked()) {
+                    tvSelecttype.setText("大型车");
+                }
+                if (cx2.isChecked()) {
+                    tvSelecttype.setText("中型车");
+                }
+                if (cx3.isChecked()) {
+                    tvSelecttype.setText("小型车");
+                }
+                if (cx4.isChecked()) {
+                    tvSelecttype.setText("微型车");
+                }
+                if (yy.isChecked()) {
+                    tvUsetype.setText("营运机动车");
+                }
+                if (fyy.isChecked()) {
+                    tvUsetype.setText("非营运机动车");
+                }
+                selectColorWindow.dismiss();
+            }
+        });
     }
+
 
     /**
      * 动态申请sdcard读写权限
@@ -317,6 +459,7 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
             PhotoUtils.openPic(this, PhotoUtils.CODE_GALLERY_REQUEST);
         }
     }
+
     /**
      * 申请访问相机权限
      */
@@ -342,5 +485,15 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
                 }
             }
         }
+    }
+
+    @Override
+    public void onSuccess() {
+        ToastUtils.showShort(this, "添加成功");
+    }
+
+    @Override
+    public void onFailed(String reson) {
+        ToastUtils.showShort(this, reson);
     }
 }

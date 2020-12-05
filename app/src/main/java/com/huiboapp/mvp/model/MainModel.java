@@ -8,9 +8,7 @@ import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
 import com.huiboapp.mvp.contract.MainContract;
 import com.huiboapp.app.service.MyService;
-import com.huiboapp.mvp.model.constant.MyConstant;
 import com.huiboapp.mvp.model.entity.BaseResponse;
-import com.huiboapp.mvp.model.entity.NewTruggleEntity;
 import com.huiboapp.mvp.model.entity.NullEntity;
 
 import java.util.Map;

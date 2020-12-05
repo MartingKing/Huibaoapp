@@ -1,21 +1,19 @@
 package com.huiboapp.mvp.presenter;
 
 import android.app.Application;
-import android.support.v4.util.ArrayMap;
 
 import com.huiboapp.mvp.common.HBTUtls;
 import com.huiboapp.mvp.contract.HomeContract;
 import com.huiboapp.mvp.model.cache.UserInfoHelper;
-import com.huiboapp.mvp.model.entity.BaseResponse;
 import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
-import com.huiboapp.mvp.model.entity.ProductListEntity;
+import com.huiboapp.mvp.model.entity.HomeOrderEntity;
+import com.huiboapp.mvp.model.entity.MenberInfo;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
 import com.jess.arms.mvp.BasePresenter;
 import com.jess.arms.utils.RxLifecycleUtils;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -66,19 +64,37 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                 });
     }
 
-    public void findProductList(int id, int pageNo, int pageSize, boolean isLoadmore) {
-        Map<String, Integer> params = new ArrayMap<>();
-        params.put("resourceId", id);
-        params.put("pageNo", pageNo);
-        params.put("pageSize", pageSize);
-        mModel.findProductList(params, isLoadmore)
+    public void getMemberInfo() {
+        Map<String, Object> paramsObject = HBTUtls.getParamsObject(HBTUtls.memberinfo);
+        mModel.getMemberInfo(paramsObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
-                .subscribe(new ErrorHandleSubscriber<BaseResponse<List<ProductListEntity>>>(mErrorHandler) {
+                .subscribe(new ErrorHandleSubscriber<MenberInfo>(mErrorHandler) {
                     @Override
-                    public void onNext(BaseResponse<List<ProductListEntity>> response) {
+                    public void onNext(MenberInfo response) {
+                    }
 
+                    @Override
+                    public void onError(Throwable t) {
+                        super.onError(t);
+                    }
+                });
+    }
+
+    public void getOrderInfo() {
+        Map<String, Object> paramsObject = HBTUtls.getParamsObject(HBTUtls.queryorderlist);
+        paramsObject.put("pageno",1);
+        paramsObject.put("paystatus","unpaid");
+        paramsObject.put("pagesize",1);
+        mModel.getOrderInfo(paramsObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxLifecycleUtils.bindToLifecycle(mRootView))
+                .subscribe(new ErrorHandleSubscriber<HomeOrderEntity>(mErrorHandler) {
+                    @Override
+                    public void onNext(HomeOrderEntity response) {
+                        mRootView.orderInfo(response.getData().getOrderlist());
                     }
 
                     @Override

@@ -3,27 +3,31 @@ package com.huiboapp.mvp.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huiboapp.di.component.DaggerUserComponent;
-import com.jess.arms.di.component.AppComponent;
 import com.huiboapp.R;
 import com.huiboapp.app.base.MBaseFragment;
 import com.huiboapp.app.utils.UmengUtils;
+import com.huiboapp.di.component.DaggerUserComponent;
 import com.huiboapp.di.module.UserModule;
 import com.huiboapp.mvp.contract.UserContract;
 import com.huiboapp.mvp.model.cache.UserInfoHelper;
+import com.huiboapp.mvp.model.entity.UserFragEntity;
 import com.huiboapp.mvp.presenter.UserPresenter;
-import com.huiboapp.mvp.ui.activity.AgreementWebActivity;
-import com.huiboapp.mvp.ui.activity.FeedbackActivity;
-import com.huiboapp.mvp.ui.activity.HelpCenterActivity;
 import com.huiboapp.mvp.ui.activity.LoginActivity;
-import com.huiboapp.mvp.ui.activity.SettingActivity;
-import com.umeng.analytics.MobclickAgent;
+import com.huiboapp.mvp.ui.adapter.UserFragAdapter;
+import com.jess.arms.di.component.AppComponent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -34,15 +38,39 @@ public class UserFragment extends MBaseFragment<UserPresenter> implements UserCo
 
     @BindView(R.id.tvUserName)
     TextView tvUserName;
+    @BindView(R.id.clayoutBg)
+    View clayoutBg;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
+    @BindView(R.id.ivBack)
+    ImageView ivBack;
+    @BindView(R.id.rlayoutTitle)
+    RelativeLayout rlayoutTitle;
+    @BindView(R.id.ivPortrait)
+    ImageView ivPortrait;
+    @BindView(R.id.tvPhone)
+    TextView tvPhone;
+    @BindView(R.id.tv1)
+    TextView tv1;
+    @BindView(R.id.tv_amount)
+    TextView tvAmount;
+    @BindView(R.id.tv_charge)
+    TextView tvCharge;
+    @BindView(R.id.lines)
+    View lines;
+    @BindView(R.id.tv_tuikuan)
+    TextView tvTuikuan;
+    @BindView(R.id.llayoutNotice)
+    ConstraintLayout llayoutNotice;
+    @BindView(R.id.tv2)
+    TextView tv2;
+    @BindView(R.id.lines2)
+    View lines2;
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerview;
 
-    @BindView(R.id.llayoutHelpCenter)
-    LinearLayout llayoutHelpCenter;
-    @BindView(R.id.llayoutFeedback)
-    LinearLayout llayoutFeedback;
-    @BindView(R.id.llayoutPrivacyPolicy)
-    LinearLayout llayoutPrivacyPolicy;
-    @BindView(R.id.llayoutSetting)
-    LinearLayout llayoutSetting;
+    String[] iconName = {"车辆", "长租证", "消息", "发票", "帮助", "建议", "设置"};
+    int[] icons = {R.mipmap.ic_car, R.mipmap.ic_czz, R.mipmap.ic_msg, R.mipmap.ic_fp, R.mipmap.ic_bz, R.mipmap.ic_jy, R.mipmap.ic_sz};
 
     public static UserFragment newInstance() {
         return new UserFragment();
@@ -66,39 +94,40 @@ public class UserFragment extends MBaseFragment<UserPresenter> implements UserCo
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         tvUserName.setOnClickListener(this);
-
-        llayoutHelpCenter.setOnClickListener(this);
-        llayoutFeedback.setOnClickListener(this);
-        llayoutPrivacyPolicy.setOnClickListener(this);
-        llayoutSetting.setOnClickListener(this);
-        if (UserInfoHelper.getInstance().isLogin()){
-            tvUserName.setText(UserInfoHelper.getInstance().getUserName());
+        ivBack.setVisibility(View.GONE);
+        tvTitle.setText(R.string.app_name);
+        recyclerview.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        UserFragAdapter adapter = new UserFragAdapter();
+        recyclerview.setAdapter(adapter);
+        List<UserFragEntity> datas = new ArrayList<>();
+        for (int i = 0; i < iconName.length; i++) {
+            UserFragEntity entity = new UserFragEntity();
+            entity.setIcon(icons[i]);
+            entity.setIconname(iconName[i]);
+            datas.add(i, entity);
         }
-        else
+        adapter.addData(datas);
+        if (UserInfoHelper.getInstance().isLogin()) {
+            tvUserName.setText(UserInfoHelper.getInstance().getUserName());
+        } else
             tvUserName.setText("请登录");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        assert mPresenter != null;
-        mPresenter.findUserInfo();
-        MobclickAgent.onPageStart("UserFragment");
-        MobclickAgent.onResume(mContext);
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        MobclickAgent.onPageEnd("UserFragment");
-        MobclickAgent.onPause(mContext);
+
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-//        if (isVisibleToUser)
-//            mPresenter.findUserInfo();
     }
 
     @Override
@@ -116,35 +145,6 @@ public class UserFragment extends MBaseFragment<UserPresenter> implements UserCo
                     setIntent(LoginActivity.class);
                 }
                 break;
-            case R.id.llayoutHelpCenter:
-                setIntent(HelpCenterActivity.class);
-                break;
-            //联系客服
-//            case R.id.llayoutCustomerService:
-//                setIntent(ContactCustomerServiceActivity.class);
-//                break;
-            case R.id.llayoutFeedback:
-                setIntent(FeedbackActivity.class);
-                break;
-            case R.id.llayoutPrivacyPolicy:
-                setIntent(AgreementWebActivity.class);
-                break;
-            case R.id.llayoutSetting:
-                if (UserInfoHelper.getInstance().isLogin()) {
-                    setIntent(SettingActivity.class);
-                } else {
-//                    new DialogUtil(getContext(), true, R.style.dialog, "您还未登录，请您先完成登录！", (dialog, confirm) -> {
-//                        if (confirm) {
-//                            dialog.dismiss();
-//                            setIntent(LoginActivity.class);
-//                        } else {
-//                            dialog.dismiss();
-//                        }
-//                    }).show();
-                    setIntent(LoginActivity.class);
-                }
-
-                break;
         }
     }
 
@@ -155,4 +155,5 @@ public class UserFragment extends MBaseFragment<UserPresenter> implements UserCo
         else
             tvUserName.setText("请登录");
     }
+
 }
