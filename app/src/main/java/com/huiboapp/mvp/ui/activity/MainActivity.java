@@ -106,6 +106,9 @@ public class MainActivity extends MBaseActivity<MainPresenter> implements MainCo
         mViewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
             @Override
             public void onPageSelected(int position) {
+                if (position==1){
+                    EventBusHelper.postStickyEvent(new ClickEvent(0));
+                }
                 menuItem = mBottomNavigationView.getMenu().getItem(position);
                 menuItem.setChecked(true);
             }

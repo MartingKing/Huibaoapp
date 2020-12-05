@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
+import android.widget.PopupWindow;
 
 import com.commonlib.agentweb.utils.AppUtils;
 import com.huiboapp.app.utils.RegexUtils;
@@ -22,6 +23,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -232,6 +234,21 @@ public class HBTUtls {
         int widthPixels2 = outMetrics2.widthPixels;
 
         return heightPixels - heightPixels2 > 0 || widthPixels - widthPixels2 > 0;
+    }
+
+
+    public static void setPopupWindowTouchModal(PopupWindow popupWindow, boolean touchModal) {
+        if (null == popupWindow) {
+            return;
+        }
+        Method method;
+        try {
+            method = PopupWindow.class.getDeclaredMethod("setTouchModal", boolean.class);
+            method.setAccessible(true);
+            method.invoke(popupWindow, touchModal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -138,6 +138,7 @@ public class AllLoanProFragment extends MBaseFragment<AllLoanPresenter> implemen
     public void onMainEvent(ClickEvent event) {
         View popView = getLayoutInflater().inflate(R.layout.layout_findpark, null);
         FindParkPopWindow findParkPopWindow = new FindParkPopWindow(getContext(), popView, mDatas);
+        HBTUtls.setPopupWindowTouchModal(findParkPopWindow, false);
         findParkPopWindow.showAtLocation(container, Gravity.BOTTOM, 0, getBottomHeight());
     }
 

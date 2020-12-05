@@ -42,6 +42,8 @@ public class FindParkPopWindow extends PopupWindow {
         this.setFocusable(true);
         //设置弹出窗体动画效果
         this.setAnimationStyle(R.style.PopupAnimation);
+        this.setOutsideTouchable(true);
+        this.setTouchable(true);
         //实例化一个颜色为半透明
         ColorDrawable dw = new ColorDrawable(context.getResources().getColor(R.color.transparent));
         //设置弹出窗口为半透明
