@@ -1,16 +1,17 @@
 package com.huiboapp.app.service;
 
 import com.huiboapp.mvp.model.entity.BaseResponse;
+import com.huiboapp.mvp.model.entity.ChargeEntity;
 import com.huiboapp.mvp.model.entity.CommonBooleanEntity;
 import com.huiboapp.mvp.model.entity.CommonEntity;
 import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
 import com.huiboapp.mvp.model.entity.HomeOrderEntity;
 import com.huiboapp.mvp.model.entity.ImageCodeEntity;
-import com.huiboapp.mvp.model.entity.LatestProEntity;
 import com.huiboapp.mvp.model.entity.MenberInfo;
 import com.huiboapp.mvp.model.entity.NullEntity;
 import com.huiboapp.mvp.model.entity.OrderDetailInfo;
 import com.huiboapp.mvp.model.entity.ParkListEntity;
+import com.huiboapp.mvp.model.entity.PayEntity;
 import com.huiboapp.mvp.model.entity.ProductListEntity;
 import com.huiboapp.mvp.model.entity.UserInfoEntity;
 import com.huiboapp.mvp.model.entity.WelcomeEntity;
@@ -86,11 +87,23 @@ public interface MyService {
     @POST("order")
     Observable<OrderDetailInfo> orderdetail(@Body Map<String, Object> params);
 
+    @POST("order")
+    Observable<PayEntity> getPayInfo(@Body Map<String, Object> params);
+
     @POST("parkinfo")
     Observable<ParkListEntity> parkAddrList(@Body Map<String, Object> params);
 
+    @Headers({"Domain-Name: hbt"})
+    @POST("account")
+    Observable<ChargeEntity> charge(@Body Map<String, Object> params);
 
+    @Headers({"Domain-Name: hbt"})
+    @POST("memberinfo")
+    Observable<CommonEntity> supplementary(@Body Map<String, Object> params);
 
+    @Headers({"Domain-Name: hbt"})
+    @POST("reserve")
+    Observable<HomeOrderEntity> reservation(@Body Map<String, Object> params);
 
     // **************************  分界线   **************************
     @Headers({"Domain-Name: hbt"})
@@ -128,10 +141,6 @@ public interface MyService {
     Observable<CommonBooleanEntity> checkImageCode(@QueryMap Map<String, String> params);
 
 
-    // 最新产品推荐  api/newAPi/findLastestProduct
-    @Headers({"Domain-Name: hbt"})
-    @GET("/api/newAPi/findLastestProduct")
-    Observable<BaseResponse<LatestProEntity>> findLastestProduct();
 
     //数据埋点
     @Headers({"Domain-Name: hbt"})

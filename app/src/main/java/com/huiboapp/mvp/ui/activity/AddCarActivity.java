@@ -24,6 +24,7 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -53,16 +54,23 @@ import butterknife.BindView;
 
 public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements AddCarContract.View {
 
-    @BindView(R.id.ivBack)
-    ImageView ivBack;
+
+    EditText[] mArray;
+    Calendar calendar = Calendar.getInstance(Locale.CHINA);
     @BindView(R.id.clayoutBg)
     View clayoutBg;
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.ivBack)
+    ImageView ivBack;
     @BindView(R.id.rlayoutTitle)
-    RelativeLayout rlayoutTitle;
+    LinearLayout rlayoutTitle;
     @BindView(R.id.tv_add_car)
     TextView tvAddCar;
+    @BindView(R.id.myimg)
+    ImageView myimg;
+    @BindView(R.id.rl_car_img)
+    RelativeLayout rlCarImg;
     @BindView(R.id.tv_color)
     TextView tvColor;
     @BindView(R.id.et1)
@@ -81,24 +89,6 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
     EditText et7;
     @BindView(R.id.et8)
     EditText et8;
-    @BindView(R.id.submit)
-    Button submit;
-    @BindView(R.id.tv_selecttime)
-    TextView tvSelecttime;
-    @BindView(R.id.tv_selecttype)
-    TextView tvSelecttype;
-    @BindView(R.id.tv_usetype)
-    TextView tvUsetype;
-    @BindView(R.id.tv_switch)
-    Switch tvSwitch;
-    @BindView(R.id.rl_car_img)
-    RelativeLayout rlCarImg;
-    @BindView(R.id.myimg)
-    ImageView myimg;
-    @BindView(R.id.rl_container)
-    RelativeLayout container;
-    Calendar calendar = Calendar.getInstance(Locale.CHINA);
-    EditText[] mArray;
     @BindView(R.id.et_cartype)
     EditText etCartype;
     @BindView(R.id.et_idnum)
@@ -107,6 +97,18 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
     EditText etFdjnum;
     @BindView(R.id.et_owner)
     EditText etOwner;
+    @BindView(R.id.tv_selecttime)
+    TextView tvSelecttime;
+    @BindView(R.id.tv_selecttype)
+    TextView tvSelecttype;
+    @BindView(R.id.tv_usetype)
+    TextView tvUsetype;
+    @BindView(R.id.tv_switch)
+    Switch tvSwitch;
+    @BindView(R.id.submit)
+    Button submit;
+    @BindView(R.id.rl_container)
+    RelativeLayout container;
     private Uri imageUri;
     private Uri cropImageUri;
     private static final int OUTPUT_X = 480;
@@ -496,4 +498,5 @@ public class AddCarActivity extends MBaseActivity<AddCarPresenter> implements Ad
     public void onFailed(String reson) {
         ToastUtils.showShort(this, reson);
     }
+
 }

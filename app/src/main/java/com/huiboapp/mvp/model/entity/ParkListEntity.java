@@ -98,6 +98,27 @@ public class ParkListEntity {
             private int distance;
             private boolean isCollected;
 
+            @Override
+            public String toString() {
+                return "ResourcelistBean{" +
+                        "parksid='" + parksid + '\'' +
+                        ", parksname='" + parksname + '\'' +
+                        ", parkstype='" + parkstype + '\'' +
+                        ", address='" + address + '\'' +
+                        ", opertime='" + opertime + '\'' +
+                        ", charge=" + charge +
+                        ", feedes='" + feedes + '\'' +
+                        ", geolocation=" + geolocation +
+                        ", total=" + total +
+                        ", free=" + free +
+                        ", shared=" + shared +
+                        ", sharedlots=" + sharedlots +
+                        ", sharedfree=" + sharedfree +
+                        ", distance=" + distance +
+                        ", isCollected=" + isCollected +
+                        '}';
+            }
+
             public String getParksid() {
                 return parksid;
             }

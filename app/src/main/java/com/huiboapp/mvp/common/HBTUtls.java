@@ -42,6 +42,19 @@ public class HBTUtls {
         return true;
     }
 
+    public static String getKm(int distance) {
+        String s;
+        if (distance >= 1000) {
+            int m = distance % 1000;
+            int k = distance / 1000;
+            String mm = String.valueOf(m).length() > 2 ? String.valueOf(m).substring(0, 2) : String.valueOf(m);
+            s = k + "." + mm + "km";
+        } else {
+            s = distance + "m";
+        }
+        return s;
+    }
+
     public static final String msg1 = "getregistedvertificationcode";
     public static final String msg2 = "updatememberpassword";
     public static final String msg3 = "getvertificationcode";
@@ -56,6 +69,13 @@ public class HBTUtls {
     public static final String queryorderlist = "queryorderlist";
     public static final String queryorderdetail = "queryorderdetail";
     public static final String queryparkslist = "queryparkslist";
+    public static final String payorder = "payparkingorder";
+    public static final String supplementary = "supplementary";
+    public static final String accountrecharge = "accountrecharge";
+    public static final String bindphone = "bindphone";
+    public static final String querylatestorder = "querylatestorder";
+    public static final String parkinfo = "parkinfo";
+    public static final String reserveparking = "reserveparking";
 
     public static Map<String, String> getParams(String msg) {
         Map<String, String> params = new ArrayMap<>();
@@ -78,18 +98,10 @@ public class HBTUtls {
         return params;
     }
 
-    public static List<String> getBr() {
-        String[] carBrColor = {"蓝牌", "黄牌", "新能源", "黄绿牌", "白牌", "黑牌", "教练车"};
-        List<String> data = new ArrayList<>();
-        for (int i = 0; i < carBrColor.length; i++) {
-            data.add(i, carBrColor[i]);
-        }
-        return data;
-    }
 
-
-    public static List<String> getCarType() {
-        String[] carType = {"大型车", "中型车", "小型车", "微型车"};
+    public static List<String> getCity() {
+        String[] carType = {"京", "津", "冀", "晋","蒙","辽","吉","黑","沪","苏","浙","皖","闽",
+                "赣","鲁","豫","鄂","湘","粤","桂","琼","渝","川","黔","滇","藏","陕","甘","青","宁","新","台","港","澳"};
         List<String> data = new ArrayList<>();
         for (int i = 0; i < carType.length; i++) {
             data.add(i, carType[i]);
@@ -249,6 +261,25 @@ public class HBTUtls {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getPayModel(int m) {
+        String model = "";
+        switch (m) {
+            case 1:
+                model = "ewallet";
+                break;
+            case 2:
+                model = "wxapp";
+                break;
+            case 3:
+                model = "aliapp";
+                break;
+            default:
+                model = "ewallet";
+                break;
+        }
+        return model;
     }
 
 }

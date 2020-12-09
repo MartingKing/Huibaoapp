@@ -94,6 +94,7 @@ public class ResetPwdPresenter extends BasePresenter<ResetPwdContract.Model, Res
                             mRootView.onRegistSuccess();
                         } else {
                             mRootView.onRegistFailue();
+                            mRootView.showMessage(response.getReason());
                         }
                     }
 

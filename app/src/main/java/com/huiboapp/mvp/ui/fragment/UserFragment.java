@@ -1,5 +1,6 @@
 package com.huiboapp.mvp.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,16 +14,25 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.commonlib.agentweb.utils.AppUtils;
 import com.huiboapp.R;
 import com.huiboapp.app.base.MBaseFragment;
-import com.huiboapp.app.utils.UmengUtils;
+import com.huiboapp.app.utils.ToastUtils;
 import com.huiboapp.di.component.DaggerUserComponent;
 import com.huiboapp.di.module.UserModule;
 import com.huiboapp.mvp.contract.UserContract;
 import com.huiboapp.mvp.model.cache.UserInfoHelper;
 import com.huiboapp.mvp.model.entity.UserFragEntity;
 import com.huiboapp.mvp.presenter.UserPresenter;
+import com.huiboapp.mvp.ui.activity.ChargeActivity;
+import com.huiboapp.mvp.ui.activity.FeedbackActivity;
+import com.huiboapp.mvp.ui.activity.HelpCenterActivity;
 import com.huiboapp.mvp.ui.activity.LoginActivity;
+import com.huiboapp.mvp.ui.activity.MyCarsActivity;
+import com.huiboapp.mvp.ui.activity.SettingActivity;
+import com.huiboapp.mvp.ui.activity.TuikuanActivity;
+import com.huiboapp.mvp.ui.activity.UserDetailActivity;
 import com.huiboapp.mvp.ui.adapter.UserFragAdapter;
 import com.jess.arms.di.component.AppComponent;
 
@@ -68,6 +78,8 @@ public class UserFragment extends MBaseFragment<UserPresenter> implements UserCo
     View lines2;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
+    @BindView(R.id.rlUser)
+    RelativeLayout rlUser;
 
     String[] iconName = {"车辆", "长租证", "消息", "发票", "帮助", "建议", "设置"};
     int[] icons = {R.mipmap.ic_car, R.mipmap.ic_czz, R.mipmap.ic_msg, R.mipmap.ic_fp, R.mipmap.ic_bz, R.mipmap.ic_jy, R.mipmap.ic_sz};
@@ -97,6 +109,9 @@ public class UserFragment extends MBaseFragment<UserPresenter> implements UserCo
         ivBack.setVisibility(View.GONE);
         tvTitle.setText(R.string.app_name);
         recyclerview.setLayoutManager(new GridLayoutManager(getContext(), 4));
+        tvCharge.setOnClickListener(this);
+        tvTuikuan.setOnClickListener(this);
+        rlUser.setOnClickListener(this);
         UserFragAdapter adapter = new UserFragAdapter();
         recyclerview.setAdapter(adapter);
         List<UserFragEntity> datas = new ArrayList<>();
@@ -107,10 +122,41 @@ public class UserFragment extends MBaseFragment<UserPresenter> implements UserCo
             datas.add(i, entity);
         }
         adapter.addData(datas);
-        if (UserInfoHelper.getInstance().isLogin()) {
-            tvUserName.setText(UserInfoHelper.getInstance().getUserName());
+        if (UserInfoHelper.getInstance().isLogin() && UserInfoHelper.getInstance().getUserInfo() != null) {
+            tvUserName.setText(UserInfoHelper.getInstance().getUserInfo().getNickname());
+            tvPhone.setText(UserInfoHelper.getInstance().getUserInfo().getMsisdn());
+            tvAmount.setText(UserInfoHelper.getInstance().getUserInfo().getBalance());
         } else
             tvUserName.setText("请登录");
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                switch (position) {
+                    case 0:
+                        startActivity(new Intent(getContext(), MyCarsActivity.class));
+                        break;
+                    case 1:
+                        ToastUtils.showShort(AppUtils.getApp(), "长租车");
+                        break;
+                    case 2:
+                        ToastUtils.showShort(AppUtils.getApp(), "消息");
+                        break;
+                    case 3:
+                        ToastUtils.showShort(AppUtils.getApp(), "发票");
+                        break;
+                    case 4:
+                        startActivity(new Intent(getContext(), HelpCenterActivity.class));
+                        break;
+                    case 5:
+                        startActivity(new Intent(getContext(), FeedbackActivity.class));
+                        break;
+                    case 6:
+                        startActivity(new Intent(getContext(), SettingActivity.class));
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -140,20 +186,20 @@ public class UserFragment extends MBaseFragment<UserPresenter> implements UserCo
         super.initViewClick(id);
         switch (id) {
             case R.id.tvUserName:
-                UmengUtils.buriedSingleClickEvent(mContext, "login_event");
                 if (!UserInfoHelper.getInstance().isLogin()) {
                     setIntent(LoginActivity.class);
                 }
                 break;
+            case R.id.tv_charge:
+                startActivity(new Intent(getActivity(), ChargeActivity.class));
+                break;
+            case R.id.tv_tuikuan:
+                startActivity(new Intent(getActivity(), TuikuanActivity.class));
+                break;
+            case R.id.rlUser:
+                startActivity(new Intent(getActivity(), UserDetailActivity.class));
+                break;
         }
-    }
-
-    @Override
-    public void setUsername() {
-        if (UserInfoHelper.getInstance().isLogin())
-            tvUserName.setText(UserInfoHelper.getInstance().getUserName());
-        else
-            tvUserName.setText("请登录");
     }
 
 }

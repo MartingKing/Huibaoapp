@@ -66,12 +66,36 @@ public class MenberInfo {
         private String msisdn;
         private String photo;
         private String token;
-        private int balance;
-        private Object approvalstatus;
+        private String balance;
+        private String approvalstatus;
         private String approvememo;
         private String approvetime;
         private String userid;
         private List<PlatelistBean> platelist;
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "memberid='" + memberid + '\'' +
+                    ", nickname='" + nickname + '\'' +
+                    ", sex=" + sex +
+                    ", birthday='" + birthday + '\'' +
+                    ", realname='" + realname + '\'' +
+                    ", idnumber='" + idnumber + '\'' +
+                    ", identification_front='" + identification_front + '\'' +
+                    ", identification_back='" + identification_back + '\'' +
+                    ", loginname='" + loginname + '\'' +
+                    ", msisdn='" + msisdn + '\'' +
+                    ", photo='" + photo + '\'' +
+                    ", token='" + token + '\'' +
+                    ", balance='" + balance + '\'' +
+                    ", approvalstatus='" + approvalstatus + '\'' +
+                    ", approvememo='" + approvememo + '\'' +
+                    ", approvetime='" + approvetime + '\'' +
+                    ", userid='" + userid + '\'' +
+                    ", platelist=" + platelist +
+                    '}';
+        }
 
         public String getMemberid() {
             return memberid;
@@ -169,19 +193,19 @@ public class MenberInfo {
             this.token = token;
         }
 
-        public int getBalance() {
+        public String getBalance() {
             return balance;
         }
 
-        public void setBalance(int balance) {
+        public void setBalance(String balance) {
             this.balance = balance;
         }
 
-        public Object getApprovalstatus() {
+        public String getApprovalstatus() {
             return approvalstatus;
         }
 
-        public void setApprovalstatus(Object approvalstatus) {
+        public void setApprovalstatus(String approvalstatus) {
             this.approvalstatus = approvalstatus;
         }
 

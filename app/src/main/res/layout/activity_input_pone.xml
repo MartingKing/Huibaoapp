@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_titlebar" />
+    <include layout="@layout/layout_active_titlebar" />
 
     <TextView
         android:id="@+id/tv_describe"

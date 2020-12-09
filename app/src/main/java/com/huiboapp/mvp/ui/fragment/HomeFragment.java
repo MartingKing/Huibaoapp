@@ -1,6 +1,7 @@
 package com.huiboapp.mvp.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Outline;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,11 +9,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,18 +30,19 @@ import com.huiboapp.R;
 import com.huiboapp.app.base.MBaseFragment;
 import com.huiboapp.di.component.DaggerHomeComponent;
 import com.huiboapp.di.module.HomeModule;
-import com.huiboapp.event.CommonEvent;
 import com.huiboapp.mvp.contract.HomeContract;
+import com.huiboapp.mvp.model.cache.UserInfoHelper;
 import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
 import com.huiboapp.mvp.model.entity.HomeOrderEntity;
 import com.huiboapp.mvp.model.entity.UserInfoEntity;
 import com.huiboapp.mvp.presenter.HomePresenter;
+import com.huiboapp.mvp.ui.activity.AddCarActivity;
+import com.huiboapp.mvp.ui.activity.FastPayActivity;
+import com.huiboapp.mvp.ui.activity.ParkedHistoryActivity;
+import com.huiboapp.mvp.ui.activity.SharedParkingActivity;
 import com.huiboapp.mvp.ui.adapter.HomeOrderAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.EventBusHelper;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 import java.util.Objects;
@@ -80,8 +80,6 @@ public class HomeFragment extends MBaseFragment<HomePresenter> implements HomeCo
     TextView tvHot;
     @BindView(R.id.rvProductList)
     RecyclerView rvProductList;
-    @BindView(R.id.scrollview)
-    NestedScrollView scrollview;
     private HomeOrderAdapter homeOrderAdapter;
     private List<UserInfoEntity.CarList> platelist;
 
@@ -110,7 +108,7 @@ public class HomeFragment extends MBaseFragment<HomePresenter> implements HomeCo
         ivBack.setVisibility(View.GONE);
         mPresenter.getMemberInfo();
         mPresenter.getOrderInfo();
-        tvTitle.setText("汇泊通");
+        tvTitle.setText(R.string.app_name);
         DividerItemDecoration divider = new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL);
         divider.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(mContext, R.drawable.item_divider1)));
         rvProductList.addItemDecoration(divider);
@@ -119,25 +117,23 @@ public class HomeFragment extends MBaseFragment<HomePresenter> implements HomeCo
         rlSharePark.setOnClickListener(this);
         rlParkRecord.setOnClickListener(this);
         rlFastPay.setOnClickListener(this);
+        platelist = UserInfoHelper.getInstance().getPlatelist();
         homeOrderAdapter = new HomeOrderAdapter(platelist);
         rvProductList.setAdapter(homeOrderAdapter);
-
     }
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onMainEvent(CommonEvent event){
-        platelist = event.getPlatelist();
-        Log.e(TAG, "onMainEvent: "+platelist);
 
-    }
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.rl_share_park:
+                startActivity(new Intent(getActivity(), SharedParkingActivity.class));
                 break;
             case R.id.rl_park_record:
+                startActivity(new Intent(getActivity(), ParkedHistoryActivity.class));
                 break;
             case R.id.rl_fast_pay:
+                startActivity(new Intent(getActivity(), FastPayActivity.class));
                 break;
         }
     }
@@ -182,8 +178,19 @@ public class HomeFragment extends MBaseFragment<HomePresenter> implements HomeCo
 
     @Override
     public void orderInfo(List<HomeOrderEntity.DataBean.OrderlistBean> orderlistBeans) {
-        if (orderlistBeans != null && orderlistBeans.size() > 0)
+        if (orderlistBeans != null && orderlistBeans.size() > 0) {
             homeOrderAdapter.addData(orderlistBeans);
+        } else {
+            View emptyView = View.inflate(getContext(), R.layout.home_eptview, null);
+            View viewById = emptyView.findViewById(R.id.addcar);
+            viewById.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(mContext, AddCarActivity.class));
+                }
+            });
+            homeOrderAdapter.setEmptyView(emptyView);
+        }
     }
 
 

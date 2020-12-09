@@ -4,9 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huiboapp.R;
@@ -18,6 +19,7 @@ import com.huiboapp.mvp.presenter.RegistAgreementPresenter;
 import com.jess.arms.di.component.AppComponent;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -25,14 +27,17 @@ import butterknife.BindView;
  */
 public class RegistAgreementActivity extends MBaseActivity<RegistAgreementPresenter> implements RegistAgreementContract.View {
 
+
+    @BindView(R.id.clayoutBg)
+    View clayoutBg;
     @BindView(R.id.tvTitle)
     TextView tvTitle;
     @BindView(R.id.ivBack)
     ImageView ivBack;
+    @BindView(R.id.rlayoutTitle)
+    LinearLayout rlayoutTitle;
     @BindView(R.id.webview)
     WebView webview;
-    @BindView(R.id.rlayoutTitle)
-    RelativeLayout rlayoutTitle;
 
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
@@ -59,4 +64,10 @@ public class RegistAgreementActivity extends MBaseActivity<RegistAgreementPresen
         isBarBule = true;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

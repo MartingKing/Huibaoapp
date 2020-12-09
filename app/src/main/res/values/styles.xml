@@ -103,7 +103,7 @@
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:cursorVisible">false</item>
         <item name="android:maxLength">1</item>
-        <item name="android:background">@drawable/bg_border_gray_0</item>
+        <item name="android:background">@drawable/selector_edit_border_color</item>
     </style>
 
     <style name="PopupAnimation" parent="android:Animation">
@@ -111,4 +111,9 @@
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
+    <style name="myNavigationDrawerStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingBottom">@dimen/dp_6</item>
+
+    </style>
 </resources>

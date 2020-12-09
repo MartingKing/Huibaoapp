@@ -1,7 +1,9 @@
 package com.huiboapp.mvp.model.cache;
 
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.huiboapp.mvp.model.entity.MenberInfo;
 import com.huiboapp.mvp.model.entity.UserInfoEntity;
 import com.huiboapp.mvp.model.sp.UserInfoSp;
 
@@ -27,16 +29,18 @@ public class UserInfoHelper {
         private static final UserInfoHelper instance = new UserInfoHelper();
     }
 
-    private String userName;
+    private String userName = "车主";
     private String userPhone;
 
     private String cookie;
     private String s1;
     private String s2;
     private String token;
-    private int balance;
+    private String balance;
     private long loginTime;
     private List<UserInfoEntity.CarList> platelist;
+    private MenberInfo.DataBean userInfo;
+
 
     public String getToken() {
         if (TextUtils.isEmpty(token)) {
@@ -117,12 +121,12 @@ public class UserInfoHelper {
         UserInfoSp.setParam(UserInfoSp.USER_PHONE, userPhone);
     }
 
-    public long getBalance() {
+    public String getBalance() {
         userPhone = UserInfoSp.getParam(UserInfoSp.USER_BALANCE);
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
         UserInfoSp.setParam(UserInfoSp.USER_BALANCE, balance);
     }
@@ -137,18 +141,24 @@ public class UserInfoHelper {
         UserInfoSp.setCarListParam(UserInfoSp.CARLIST, platelist);
     }
 
+
     public void setLoginInfo(UserInfoEntity param) {
-        setUserName(param.getLoginname());
+        setUserName(param.getNickname());
         setUserPhone(param.getMsisdn());
         setToken(param.getToken());
         setBalance(param.getBalance());
         setPlatelist(param.getPlatelist());
     }
 
-    public void setUserInfo(UserInfoEntity param) {
-        setUserName(param.getNickname());
-        setUserPhone(param.getMsisdn());
-        setBalance(param.getBalance());
+    public MenberInfo.DataBean getUserInfo() {
+        userInfo = UserInfoSp.getUserInfo(UserInfoSp.USERINFO);
+        return userInfo;
+    }
+
+    public void setUserInfo(MenberInfo.DataBean param) {
+        this.userInfo = param;
+        Log.e("initData", "setUserInfo: ");
+        UserInfoSp.setUserINfo(UserInfoSp.USERINFO, param);
     }
 
     public void clearUserInfo() {

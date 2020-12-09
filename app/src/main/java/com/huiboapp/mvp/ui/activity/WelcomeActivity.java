@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -13,6 +14,7 @@ import com.huiboapp.app.base.MBaseActivity;
 import com.huiboapp.di.component.DaggerWelcomeComponent;
 import com.huiboapp.di.module.WelcomeModule;
 import com.huiboapp.mvp.contract.WelcomeContract;
+import com.huiboapp.mvp.model.cache.UserInfoHelper;
 import com.huiboapp.mvp.presenter.WelcomePresenter;
 import com.jess.arms.di.component.AppComponent;
 
@@ -47,11 +49,16 @@ public class WelcomeActivity extends MBaseActivity<WelcomePresenter> implements 
         isBarDarkFont = false;
         initImmersionBar();
         //将window的背景图设置为空
+        getWindow().setBackgroundDrawable(null);
         mPresenter.getSplash();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                if (!TextUtils.isEmpty(UserInfoHelper.getInstance().getToken())){
+                    startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                }else {
+                    startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                }
                 finish();
             }
         }, 500);

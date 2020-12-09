@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:id="@+id/container"
     android:orientation="vertical">
 
     <include layout="@layout/layout_titlebar" />
@@ -11,6 +11,29 @@
     <com.amap.api.maps.MapView
         android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rlayoutTitle" />
 
-</LinearLayout>
+    <EditText
+        android:id="@+id/keyWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlayoutTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="@drawable/shape_icv_et_bg_normal"
+        android:completionThreshold="1"
+        android:drawableStart="@mipmap/ic_search"
+        android:drawablePadding="@dimen/dp_10"
+        android:dropDownVerticalOffset="1.0dip"
+        android:hint="想去哪搜搜看"
+        android:imeOptions="actionDone"
+        android:inputType="text|textAutoComplete"
+        android:maxLength="20"
+        android:paddingStart="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_30"
+        android:singleLine="true"
+        android:textColor="#000000"
+        android:textColorHint="@color/color999"
+        android:textSize="16.0sp" />
+</RelativeLayout>

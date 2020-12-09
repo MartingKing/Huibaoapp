@@ -18,7 +18,7 @@
     <string name="tab_find_bw">找泊位</string>
     <string name="tab_life">生活</string>
     <string name="tab_user">我的</string>
-
+    <string name="pay_result_callback_msg" formatted="false">微信支付结果：%s</string>
     <!--<string name="notice_info">已有&#60;font color = "#fe6256"&#62;%s&#60;&#47;font&#62;人申请借款，最快&#60;font color = "#fe6256"&#62;3分钟&#60;&#47;font&#62;放款</string>-->
     <string name="notice_info1">已有&#60;font color = "#fe6256"&#62;%s&#60;&#47;font&#62;人成功下款!</string>
     <string name="problem00">如何申请一笔借款？</string>
@@ -87,8 +87,8 @@
     <string name="recomend">推荐</string>
     <string name="dector_detail_page">探测器详情页</string>
     <string name="tips_common_question1">我们会仔细阅读您的留言，并认真吸取您的建议。</string>
-    <string name="hint_common_question">请输入100字以内的留言…</string>
-    <string name="tips_common_question2">请留下您的联系方式，我们会联系您。</string>
+    <string name="hint_common_question">请说说你的意见和建议吧</string>
+    <string name="tips_common_question2">联系方式</string>
     <string name="submit_confirm">确认提交</string>
     <string name="platform_introduce">平台介绍</string>
     <string name="low_steps">门槛更低</string>
@@ -141,4 +141,10 @@
     <string name="image_descripe">image_descripe</string>
     <string name="recomend_suggestion">已为你探得以下产品， 建议您同时申请3家以上平台通过率100%</string>
 
+
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_unsupported">不支持错误</string>
+    <string name="errcode_unknown">发送返回</string>
 </resources>

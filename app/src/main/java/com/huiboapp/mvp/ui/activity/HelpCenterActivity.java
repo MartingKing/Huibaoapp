@@ -9,18 +9,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.huiboapp.di.component.DaggerHelpCenterComponent;
-import com.jess.arms.di.component.AppComponent;
 import com.huiboapp.R;
 import com.huiboapp.app.base.MBaseActivity;
+import com.huiboapp.di.component.DaggerHelpCenterComponent;
 import com.huiboapp.di.module.HelpCenterModule;
 import com.huiboapp.mvp.contract.HelpCenterContract;
 import com.huiboapp.mvp.model.entity.ProblemEntity;
 import com.huiboapp.mvp.presenter.HelpCenterPresenter;
 import com.huiboapp.mvp.ui.adapter.ProblemListAdapter;
+import com.jess.arms.di.component.AppComponent;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -32,17 +32,19 @@ import butterknife.BindView;
  */
 public class HelpCenterActivity extends MBaseActivity<HelpCenterPresenter> implements HelpCenterContract.View {
 
+
+    @BindView(R.id.clayoutBg)
+    View clayoutBg;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.ivBack)
     ImageView ivBack;
+    @BindView(R.id.rlayoutTitle)
+    LinearLayout rlayoutTitle;
     @BindView(R.id.rvProblemList)
     RecyclerView rvProblemList;
 
     ProblemListAdapter adapter;
-    @BindView(R.id.tvTitle)
-    TextView tvTitle;
-    @BindView(R.id.rlayoutTitle)
-    RelativeLayout rlayoutTitle;
-
     @Override
     public void setupActivityComponent(@NonNull AppComponent appComponent) {
         DaggerHelpCenterComponent
@@ -89,7 +91,7 @@ public class HelpCenterActivity extends MBaseActivity<HelpCenterPresenter> imple
         data.add(new ProblemEntity(R.string.problem07, R.string.problem_info07));
         data.add(new ProblemEntity(R.string.problem08, R.string.problem_info08));
 
-        adapter.setNewData(data);
+//        adapter.setNewData(data);
 
         ivBack.setOnClickListener(this);
     }
@@ -100,5 +102,4 @@ public class HelpCenterActivity extends MBaseActivity<HelpCenterPresenter> imple
             finish();
         }
     }
-
 }

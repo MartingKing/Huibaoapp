@@ -424,6 +424,7 @@ public final class SPUtils {
 
     /**
      * save json string of data list to share preference
+     *
      * @param tag
      * @param datalist
      */
@@ -433,20 +434,19 @@ public final class SPUtils {
         Gson gson = new Gson();
         //change datalist to json
         String strJson = gson.toJson(datalist);
-        sp.edit().clear();
-        sp.edit().putString(tag, strJson);
-        sp.edit().apply();
+        put(tag, strJson);
     }
 
     /**
      * get data List from share preferences
+     *
      * @param tag share preferences data tag
      * @param cls target list element object class
      * @return list
      */
     public <T> List<T> getDataList(String tag, Class<T> cls) {
-        List<T> datalist=new ArrayList<T>();
-        String strJson = sp.getString(tag, null);
+        List<T> datalist = new ArrayList<T>();
+        String strJson = getString(tag);
         if (null == strJson) {
             return datalist;
         }
@@ -463,6 +463,7 @@ public final class SPUtils {
 
     /**
      * save json string of data to share preference
+     *
      * @param tag
      * @param data object
      */
@@ -472,20 +473,19 @@ public final class SPUtils {
         Gson gson = new Gson();
         //change data to json
         String strJson = gson.toJson(data);
-        sp.edit().clear();
-        sp.edit().putString(tag, strJson);
-        sp.edit().apply();
+        put(tag, strJson);
     }
 
     /**
      * get data from share preferences
+     *
      * @param tag share preferences data tag
      * @param cls target object class
      * @return target object or null if error happyed
      */
     public <T> T getData(String tag, Class<T> cls) {
         T data = null;
-        String strJson = sp.getString(tag, null);
+        String strJson = getString(tag, null);
         if (null == strJson) {
             return null;
         }

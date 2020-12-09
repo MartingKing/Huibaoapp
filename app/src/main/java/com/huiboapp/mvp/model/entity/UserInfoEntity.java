@@ -23,7 +23,7 @@ public class UserInfoEntity implements Serializable {
     private String approvalstatus;
     private String approvememo;
     private String approvetime;
-    private int balance;
+    private String balance;
     private String ackmsg;
     private String ackmsgid;
     private String result;
@@ -150,11 +150,11 @@ public class UserInfoEntity implements Serializable {
         this.approvetime = approvetime;
     }
 
-    public int getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 

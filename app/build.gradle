@@ -20,7 +20,7 @@ android {
         }
         ndk {
             //设置支持的SO库架构
-            abiFilters 'armeabi'
+            abiFilters 'armeabi','x86'
         }
         sourceSets {
             main {
@@ -31,10 +31,10 @@ android {
 
     signingConfigs {
         release {
-            keyAlias 'jryj'
-            keyPassword 'jryj123'
-            storeFile file("jryj_keystore.jks")
-            storePassword 'jryj123'
+            keyAlias 'Huize'
+            keyPassword 'huiboapp'
+            storeFile file("huiboapp.jks")
+            storePassword 'huiboapp'
         }
     }
 
@@ -51,7 +51,7 @@ android {
         debug {
             buildConfigField "boolean", "LOG_DEBUG", "true"
             buildConfigField "boolean", "USE_CANARY", "true"
-            buildConfigField("String", "APP_DOMAIN", "\"https://huibo.parkingquickly.com/smartparking\"")
+            buildConfigField("String", "APP_DOMAIN", "\"http://huibo.parkingquickly.com/smartparking/\"")
             manifestPlaceholders.put("UMENG_APPKEY", "5c948db63fc1953ecc00073e")
             minifyEnabled false
             debuggable true
@@ -61,7 +61,7 @@ android {
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"
             buildConfigField "boolean", "USE_CANARY", "false"
-            buildConfigField("String", "APP_DOMAIN", "\"https://huibo.parkingquickly.com/smartparking\"")
+            buildConfigField("String", "APP_DOMAIN", "\"http://huibo.parkingquickly.com/smartparking/\"")
             manifestPlaceholders.put("UMENG_APPKEY", "5c948db63fc1953ecc00073e")
             debuggable false
             minifyEnabled true
@@ -156,13 +156,13 @@ dependencies {
 
     //刷新控件
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-    implementation rootProject.ext.dependencies["arouter"]
-    annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
-    implementation 'com.amap.api:3dmap:5.0.0'
+//    implementation 'com.amap.api:3dmap:5.0.0'
     implementation 'com.amap.api:location:3.3.0'
     implementation 'com.amap.api:search:5.0.0'
-
+    implementation 'com.amap.api:navi-3dmap:7.4.0_3dmap7.4.0'
     implementation project(':webmodule')
     //arms
     implementation project(':mvpmodule')
+    implementation 'com.tsy:pay:1.0.0'
+    implementation 'com.aliyun.dpa:oss-android-sdk:2.9.5'
 }

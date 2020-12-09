@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.commonlib.agentweb.utils.AppUtils;
@@ -21,23 +23,28 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 public class ResetPwdActivity extends MBaseActivity<ResetPwdPresenter> implements ResetPwdContract.View {
 
 
+    @BindView(R.id.clayoutBg)
+    View clayoutBg;
+    @BindView(R.id.tvTitle)
+    TextView tvTitle;
     @BindView(R.id.ivBack)
     ImageView ivBack;
+    @BindView(R.id.rlayoutTitle)
+    LinearLayout rlayoutTitle;
+    @BindView(R.id.tv_describe)
+    TextView tvDescribe;
     @BindView(R.id.et_pwd)
     EditText etPwd;
     @BindView(R.id.et_pwd2)
     EditText etPwd2;
     @BindView(R.id.btnNext)
     Button btnNext;
-    @BindView(R.id.tv_title)
-    TextView tvTitle;
-    @BindView(R.id.tv_describe)
-    TextView tvDescribe;
     private String vscode, mobile, intentTag;
 
     @Override
@@ -126,4 +133,5 @@ public class ResetPwdActivity extends MBaseActivity<ResetPwdPresenter> implement
     public void onRegistFailue() {
 
     }
+
 }

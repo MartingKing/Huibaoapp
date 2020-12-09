@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huiboapp.R;
@@ -22,20 +22,20 @@ import butterknife.ButterKnife;
 public class NewRegistActivity extends AppCompatActivity {
 
 
-    @BindView(R.id.ivBack)
-    ImageView ivBack;
+    @BindView(R.id.clayoutBg)
+    View clayoutBg;
     @BindView(R.id.tvTitle)
     TextView tvTitle;
+    @BindView(R.id.ivBack)
+    ImageView ivBack;
+    @BindView(R.id.rlayoutTitle)
+    LinearLayout rlayoutTitle;
     @BindView(R.id.tv_describe)
     TextView tvDescribe;
     @BindView(R.id.etUsername)
     EditText etUsername;
     @BindView(R.id.btn_next_step)
     Button btnNextStep;
-    @BindView(R.id.clayoutBg)
-    View clayoutBg;
-    @BindView(R.id.rlayoutTitle)
-    RelativeLayout rlayoutTitle;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

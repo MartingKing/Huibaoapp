@@ -16,23 +16,35 @@ import com.huiboapp.mvp.model.entity.ParkListEntity;
 import com.huiboapp.mvp.ui.adapter.FindParkAdapter;
 
 public class FindParkPopWindow extends PopupWindow {
+    public interface ParkPopWindowItemClickListerner {
+        void onClick(BaseQuickAdapter adapter, View view, int position);
+    }
+
+    private ParkPopWindowItemClickListerner clickListerner;
+
+    public void setClickListerner(ParkPopWindowItemClickListerner clickListerner) {
+        this.clickListerner = clickListerner;
+    }
 
     public FindParkPopWindow(Context context, View mMenuView, ParkListEntity parkListEntit) {
         super(context);
         this.setContentView(mMenuView);
-
         RecyclerView recyclerview = mMenuView.findViewById(R.id.recyclerview);
 
         recyclerview.setLayoutManager(new LinearLayoutManager(context));
         FindParkAdapter findParkAdapter = new FindParkAdapter(R.layout.item_findpark);
-        recyclerview.setAdapter(findParkAdapter);
-        findParkAdapter.addData(parkListEntit.getData().getResourcelist());
-        findParkAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        if (parkListEntit != null) {
+            findParkAdapter.addData(parkListEntit.getData().getResourcelist());
+            recyclerview.setAdapter(findParkAdapter);
+            findParkAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    dismiss();
+                    clickListerner.onClick(adapter, view, position);
+                }
+            });
+        }
 
-            }
-        });
         //为choosePicPopWindow设置底部菜单视图
         //设置宽度
         this.setWidth(ViewGroup.LayoutParams.MATCH_PARENT);

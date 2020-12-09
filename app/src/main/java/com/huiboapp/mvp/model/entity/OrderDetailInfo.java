@@ -67,8 +67,17 @@ public class OrderDetailInfo {
         private String outphoto;
         private String lat;
         private String lng;
-        private Object paychannel;
+        private String paychannel;
         private String contactphone;
+        private String unpaidfee;
+
+        public String getUnpaidfee() {
+            return unpaidfee;
+        }
+
+        public void setUnpaidfee(String unpaidfee) {
+            this.unpaidfee = unpaidfee;
+        }
 
         public String getId() {
             return id;
@@ -198,11 +207,11 @@ public class OrderDetailInfo {
             this.lng = lng;
         }
 
-        public Object getPaychannel() {
+        public String getPaychannel() {
             return paychannel;
         }
 
-        public void setPaychannel(Object paychannel) {
+        public void setPaychannel(String paychannel) {
             this.paychannel = paychannel;
         }
 

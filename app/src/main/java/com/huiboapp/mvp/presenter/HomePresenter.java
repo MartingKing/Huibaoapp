@@ -5,6 +5,7 @@ import android.app.Application;
 import com.huiboapp.mvp.common.HBTUtls;
 import com.huiboapp.mvp.contract.HomeContract;
 import com.huiboapp.mvp.model.cache.UserInfoHelper;
+import com.huiboapp.mvp.model.constant.MyConstant;
 import com.huiboapp.mvp.model.entity.HomeBannerIconEntity;
 import com.huiboapp.mvp.model.entity.HomeOrderEntity;
 import com.huiboapp.mvp.model.entity.MenberInfo;
@@ -73,6 +74,8 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
                 .subscribe(new ErrorHandleSubscriber<MenberInfo>(mErrorHandler) {
                     @Override
                     public void onNext(MenberInfo response) {
+                        if (response.getResult() == MyConstant.SUCCESS_CODE && response.getData() != null)
+                            UserInfoHelper.getInstance().setUserInfo(response.getData());
                     }
 
                     @Override
@@ -84,9 +87,9 @@ public class HomePresenter extends BasePresenter<HomeContract.Model, HomeContrac
 
     public void getOrderInfo() {
         Map<String, Object> paramsObject = HBTUtls.getParamsObject(HBTUtls.queryorderlist);
-        paramsObject.put("pageno",1);
-        paramsObject.put("paystatus","unpaid");
-        paramsObject.put("pagesize",1);
+        paramsObject.put("pageno", 1);
+        paramsObject.put("paystatus", "unpaid");
+        paramsObject.put("pagesize", 1);
         mModel.getOrderInfo(paramsObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

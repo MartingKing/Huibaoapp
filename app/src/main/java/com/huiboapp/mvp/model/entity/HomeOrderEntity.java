@@ -89,9 +89,29 @@ public class HomeOrderEntity {
             private int discountfee;
             private int paidfee;
             private int refundfee;
-            private String settlestate;
-            private Object invoiceno;
+            private int unpaidfee;
+            private String settlestate;//
+            private String invoiceno;
             private String contactphone;
+
+            private boolean isChecked;
+            private String paystatus;
+
+            public String getPaystatus() {
+                return paystatus;
+            }
+
+            public void setPaystatus(String paystatus) {
+                this.paystatus = paystatus;
+            }
+
+            public boolean isChecked() {
+                return isChecked;
+            }
+
+            public void setChecked(boolean checked) {
+                isChecked = checked;
+            }
 
             public String getId() {
                 return id;
@@ -181,11 +201,11 @@ public class HomeOrderEntity {
                 this.settlestate = settlestate;
             }
 
-            public Object getInvoiceno() {
+            public String getInvoiceno() {
                 return invoiceno;
             }
 
-            public void setInvoiceno(Object invoiceno) {
+            public void setInvoiceno(String invoiceno) {
                 this.invoiceno = invoiceno;
             }
 
@@ -195,6 +215,14 @@ public class HomeOrderEntity {
 
             public void setContactphone(String contactphone) {
                 this.contactphone = contactphone;
+            }
+
+            public int getUnpaidfee() {
+                return unpaidfee;
+            }
+
+            public void setUnpaidfee(int unpaidfee) {
+                this.unpaidfee = unpaidfee;
             }
         }
     }

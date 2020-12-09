@@ -1,6 +1,7 @@
 package com.huiboapp.mvp.model.sp;
 
 import com.huiboapp.app.utils.SPUtils;
+import com.huiboapp.mvp.model.entity.MenberInfo;
 import com.huiboapp.mvp.model.entity.UserInfoEntity;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class UserInfoSp {
     public static final String TOKEN = "token";
     public static final String CARLIST = "carlist";
     public static final String LOGIN_TIME = "login_time";
+    public static final String USERINFO = "userinfo";
 
 
     public static SPUtils data() {
@@ -72,5 +74,13 @@ public class UserInfoSp {
 
     public static List<UserInfoEntity.CarList> getCarListParam(String key) {
         return data().getDataList(key, UserInfoEntity.CarList.class);
+    }
+
+    public static void setUserINfo(String key, MenberInfo.DataBean userinfo) {
+        data().setData(key, userinfo);
+    }
+
+    public static MenberInfo.DataBean getUserInfo(String key) {
+        return data().getData(key, MenberInfo.DataBean.class);
     }
 }

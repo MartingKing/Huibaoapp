@@ -6,19 +6,13 @@
     android:background="@color/app_bg2"
     android:orientation="vertical">
 
-    <View
-        android:id="@+id/vStatusBar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/status_bar_height"
-        android:background="@color/app_bg" />
-
-    <include layout="@layout/layout_titlebar" />
+    <include layout="@layout/layout_active_titlebar" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_10"
-        android:text="@string/tips_common_question1"
+        android:text="内容描述"
         android:textColor="@color/text_color_3"
         android:textSize="@dimen/sp_14" />
 
@@ -50,9 +44,7 @@
         android:layout_height="@dimen/dp_50"
         android:background="@color/white"
         android:gravity="left|center_vertical"
-        android:hint="@string/input_mobile"
-        android:inputType="number"
-        android:maxLength="11"
+        android:hint="QQ/电话/邮箱"
         android:padding="@dimen/dp_10"
         android:textColor="@color/text_color_2"
         android:textColorHint="@color/text_color_3"
@@ -68,19 +60,6 @@
         android:background="@drawable/shape_corner_gradient_light_blue"
         android:gravity="center"
         android:text="@string/submit_confirm"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_16" />
-
-    <TextView
-        android:id="@+id/changeIp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_44"
-        android:layout_marginLeft="@dimen/dp_30"
-        android:layout_marginTop="@dimen/dp_30"
-        android:layout_marginRight="@dimen/dp_30"
-        android:background="@drawable/shape_corner_gradient_light_blue"
-        android:gravity="center"
-        android:text="修改域名"
         android:textColor="@color/white"
         android:textSize="@dimen/sp_16" />
 

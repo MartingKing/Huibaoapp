@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.huiboapp.app.service.MyService;
 import com.huiboapp.mvp.contract.StopCarDetailContract;
 import com.huiboapp.mvp.model.entity.OrderDetailInfo;
+import com.huiboapp.mvp.model.entity.PayEntity;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.integration.IRepositoryManager;
 import com.jess.arms.mvp.BaseModel;
@@ -39,5 +40,10 @@ public class StopCarDetailModel extends BaseModel implements StopCarDetailContra
     @Override
     public Observable<OrderDetailInfo> orderDetail(Map<String, Object> params) {
         return mRepositoryManager.obtainRetrofitService(MyService.class).orderdetail(params);
+    }
+
+    @Override
+    public Observable<PayEntity> payOrder(Map<String, Object> params) {
+        return mRepositoryManager.obtainRetrofitService(MyService.class).getPayInfo(params);
     }
 }

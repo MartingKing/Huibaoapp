@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.huiboapp.R;
@@ -39,7 +39,7 @@ public class MyCarsActivity extends MBaseActivity<MyCarsPresenter> implements My
     @BindView(R.id.ivBack)
     ImageView ivBack;
     @BindView(R.id.rlayoutTitle)
-    RelativeLayout rlayoutTitle;
+    LinearLayout rlayoutTitle;
     @BindView(R.id.recyclerview)
     RecyclerView recyclerview;
     private MyCarsAdapter myCarsAdapter;
@@ -61,11 +61,12 @@ public class MyCarsActivity extends MBaseActivity<MyCarsPresenter> implements My
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onMainEvent(CommonEvent event){
+    public void onMainEvent(CommonEvent event) {
         platelist = event.getPlatelist();
-        Log.e(TAG, "onMainEvent2: "+platelist);
+        Log.e(TAG, "onMainEvent2: " + platelist);
 
     }
+
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         tvTitle.setText("我的车辆");

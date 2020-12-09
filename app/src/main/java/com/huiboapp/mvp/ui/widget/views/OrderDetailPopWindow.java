@@ -17,7 +17,16 @@ import com.huiboapp.mvp.model.entity.OrderDetailInfo;
 
 public class OrderDetailPopWindow extends PopupWindow {
 
-    public OrderDetailPopWindow(Context context,View mMenuView, OrderDetailInfo detailInfo) {
+    public interface OnPayListener{
+        void onPay();
+    }
+    private OnPayListener payListener;
+
+    public void setPayListener(OnPayListener payListener) {
+        this.payListener = payListener;
+    }
+
+    public OrderDetailPopWindow(Context context, View mMenuView, OrderDetailInfo detailInfo) {
         super(context);
         this.setContentView(mMenuView);
 
@@ -41,7 +50,7 @@ public class OrderDetailPopWindow extends PopupWindow {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dismiss();
+                payListener.onPay();
             }
         });
 
@@ -64,14 +73,7 @@ public class OrderDetailPopWindow extends PopupWindow {
             @Override
             @SuppressLint("ClickableViewAccessibility")
             public boolean onTouch(View v, MotionEvent event) {
-
-                int height = mMenuView.findViewById(R.id.pop_layout).getTop();
-                int y = (int) event.getY();
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (y < height) {
-                        dismiss();
-                    }
-                }
+                dismiss();
                 return true;
             }
         });

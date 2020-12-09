@@ -4,7 +4,7 @@
     <corners android:radius="@dimen/dp_3" />
     <gradient
         android:angle="90"
-        android:endColor="@color/colorBlueCarBra"
+        android:endColor="@color/color_light_blue"
         android:startColor="@color/colorBlueCarBra" />
 
     <!-- 设置几何形状绘制边框 -->
